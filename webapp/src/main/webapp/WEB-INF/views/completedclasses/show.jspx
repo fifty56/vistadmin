@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:vist="urn:jsptagdir:/WEB-INF/tags/vist" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:spring="http://www.springframework.org/tags" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+	<c:if test="${createdCourseIncomes != null}">
+		<spring:message code="warning_label" var="warning_label" htmlEscape="false" />
+		<spring:message code="warning_followinf_cis_created_for_cc" var="label_ci_created_for_cc" htmlEscape="false" />
+		<spring:url value="/" var="url_base"/>
+		<div class="warning_message">
+			<p class="warning_title">${warning_label}</p>
+			<p>${label_ci_created_for_cc}
+				<ul>
+					<c:forEach items="${createdCourseIncomes}" var="createdCourseIncome">
+					<spring:message code="select_option_completedclass_month_${createdCourseIncome.month}" var="ci_month" htmlEscape="false" />
+					<spring:message code="select_option_completedclass_week" arguments="${createdCourseIncome.week}" var="ci_week" htmlEscape="false" />
+					<c:if test="${createdCourseIncome.week == -1}">
+						<spring:message code="select_option_completedclass_monthly" var="ci_week" htmlEscape="false" />
+					</c:if>			
+					<li><vist:courseIncome courseIncome="${createdCourseIncome}"/> (<a target="_blank" href="${url_base}courseincomes/${createdCourseIncome.id}">link</a>)</li>
+					</c:forEach>
+				</ul>
+			</p>
+		</div>
+	</c:if>
+
+    <page:show id="ps_org_vist_vistadmin_domain_CompletedClass" delete="${deleteEnabled}" object="${completedclass}" path="/completedclasses" z="2eW5JUxKz1aihsAR8+a0IUWq5jk=">
+        <field:display field="course" id="s_org_vist_vistadmin_domain_CompletedClass_course" object="${completedclass}" z="CfsBna/NKCxzQ9Z4WdqETyFYPB4=" showAsLink="true"/>
+        <field:display field="teacher" id="s_org_vist_vistadmin_domain_CompletedClass_teacher" object="${completedclass}" z="LPLybdA+LmsNooPUtQQK3ucfN3Q=" showAsLink="true"/>
+        <field:display field="compYear" id="s_org_vist_vistadmin_domain_CompletedClass_compYear" object="${completedclass}" z="4TOO54HwcYQeotdv5AeUAWqJDJM="/>
+
+		<spring:message code="label_org_vist_vistadmin_domain_completedclass_compmonth" var="monthlabel" htmlEscape="false" />
+		<div id="_s_org_vist_vistadmin_domain_CompletedClass_compMonth_id">
+      		<label for="_compMonth_id">	
+        		<c:out value="${monthlabel}" />:
+      		</label>
+      		<div class="box" id="_s_org_vist_vistadmin_domain_CompletedClass_compMonth_compMonth_id">
+      			<spring:message code="select_option_completedclass_month_${completedclass.compMonth}" var="month" htmlEscape="false" />
+      			<c:out value="${month}" />
+        	</div>
+        </div>
+        <br/>        
+        
+        
+        <spring:message code="label_org_vist_vistadmin_domain_completedclass_compweek" var="weeklabel" htmlEscape="false" />
+		<div id="_s_org_vist_weekvistadmin_domain_CompletedClass_compWeek_id">
+      		<label for="_compWeek_id">	
+        		<c:out value="${weeklabel}" />:
+      		</label>
+      		<div class="box" id="_s_org_vist_vistadmin_domain_CompletedClass_compWeek_compWeek_id">
+      			<c:choose>
+      				<c:when test="${completedclass.compWeek == -1}">
+      					<spring:message code="select_option_completedclass_monthly" var="week" htmlEscape="false" />		
+      				</c:when>
+      				<c:otherwise>
+      					<spring:message code="select_option_completedclass_week" arguments="${completedclass.compWeek}" var="week" htmlEscape="false" />
+      				</c:otherwise>
+      			</c:choose>      			
+      			<c:out value="${week}" />
+        	</div>
+        </div>
+        <br/>   
+
+        <field:display field="numberOfClasses" id="s_org_vist_vistadmin_domain_CompletedClass_numberOfClasses" object="${completedclass}" z="Xnp6+hjSrc4uKKvTxc54/G8oFCs="/>
+        <field:display field="containsTestClass" id="c_org_vist_vistadmin_domain_completedclass_contains_test_class" object="${completedclass}" z="LPLybdA+LmsNooPUtQQK3ucfN3Q=" isboolean="true"/>
+        <field:display field="billOrderNumber" id="s_org_vist_vistadmin_domain_CompletedClass_billordernumber" object="${completedclass}" z="Xnp6+hjSrc4uKKvTxc54/G8oFCs="/>        
+        <field:display date="true" dateTimePattern="${vistadminDateFormat}" field="deadlineDate" id="c_org_vist_vistadmin_domain_completedclass_deadlinedate" object="${completedclass}" z="29MnxSE4s4t4qfSby9ymclTnjf0="/>
+        <field:display field="payed" id="s_org_vist_vistadmin_domain_CompletedClass_payed" object="${completedclass}" z="qbuQodT7GPyaqz63ysA/4Fyg29E=" isboolean="true"/>
+        <field:display date="true" dateTimePattern="${vistadminDateFormat}" field="paymentDate" id="c_org_vist_vistadmin_domain_completedclass_paymentdate" object="${completedclass}" z="29MnxSE4s4t4qfSby9ymclTnjf0="/>                                                                                              
+    </page:show>
+</div>

@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="adult_normal" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cc64269a-802d-4c56-b043-7ebe303791e7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="478"/>
+	<property name="ireport.layers" value="##Tue Aug 07 17:05:08 CEST 2012\nlayer.2.visible=true\nlayer.1.name=inputs\nlayer.0.visible=true\nlayer.2.id=2\nlayer.2.name=static text\nlayer.1.id=1\nlayer.1.visible=true\nlayer.0.id=0\nlayer.0.name=Background"/>
+	<parameter name="course" class="org.vist.vistadmin.domain.Course" isForPrompting="false"/>
+	<parameter name="student" class="org.vist.vistadmin.domain.Student"/>
+	<parameter name="courseTitle" class="java.lang.String"/>
+	<parameter name="coursePlace" class="java.lang.String"/>
+	<parameter name="courseStartDate" class="java.lang.String"/>
+	<parameter name="courseEndDate" class="java.lang.String"/>
+	<parameter name="numberOfStudents" class="java.lang.String"/>
+	<parameter name="studentAddress" class="java.lang.String"/>
+	<parameter name="courseSchedule" class="java.lang.String"/>
+	<parameter name="studentBornPlaceDate" class="java.lang.String"/>
+	<parameter name="priceStr" class="java.lang.String"/>
+	<parameter name="preiceDetailsStr" class="java.lang.String"/>
+	<parameter name="currDateStr" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="802" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="85a0f03d-f537-4551-8ded-34db8833cb85" x="0" y="0" width="179" height="79"/>
+				<textElement/>
+				<text><![CDATA[VIST - VILÁGNYELVEK STÚDIÓJA
+2310 Szigetszentmiklós Gyári út 17
+Tel.: 06-30-347-1607
+info@vilagnyelvek.hu
+www.vilagnyelvek.hu
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9ebd218f-19b4-4fe9-b760-99cbef1944c0" x="304" y="0" width="125" height="19"/>
+				<textElement textAlignment="Right"/>
+				<text><![CDATA[Tanfolyam azonosító:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="bde9d85a-c3bc-4bfe-b5eb-2a06da6a3478" x="431" y="0" width="122" height="20">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[$P{course}.getCourseId()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e2116778-a565-44c0-9e14-eec65a0458f2" x="138" y="68" width="279" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FELNŐTTKÉPZÉSI SZERZŐDÉS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="323c6640-6eae-4162-aa92-a4175d4af730" x="0" y="113" width="553" height="51">
+					<property name="ireport.layer" value="2"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Amely létrejött egyrészről a Mayflower BT ( Székhely: 2310 Szigetszentmiklós Bíró Lajos utca 111., reg.szám: 13-0173-07, cégjegyzékszám: 13-06-056201, képviselője: Bartha-Becskei Zsuzsanna, cégvezető), mint képzést nyújtó intézmény, másrészről:
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="ed3d9a70-3dac-473b-9e0c-eaf929655f19" x="142" y="164" width="371" height="15">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{student}.getPersonalData().getLastName() + " " + $P{student}.getPersonalData().getFirstName()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bf25f54d-9b12-4f30-9fc0-660bf653efe7" x="142" y="178" width="371" height="15">
+					<property name="ireport.layer" value="1"/>
+					<printWhenExpression><![CDATA[$P{student}.getPersonalData().getMotherName() != null && !$P{student}.getPersonalData().getMotherName().equals("")]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{student}.getPersonalData().getMotherName()]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy/MM/dd">
+				<reportElement uuid="377ce25e-a19b-48dc-8efe-a01af0e22e95" x="142" y="192" width="371" height="15">
+					<property name="ireport.layer" value="1"/>
+					<printWhenExpression><![CDATA[$P{student}.getPersonalData().getBornDate() != null]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{studentBornPlaceDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="92c545f5-bc1b-4362-a561-604c5388ad43" x="142" y="206" width="371" height="15">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{studentAddress}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e3b80294-ae7b-4b92-ae86-2168bc4718e7" x="142" y="220" width="371" height="15">
+					<property name="ireport.layer" value="1"/>
+					<printWhenExpression><![CDATA[$P{student}.getPersonalData().getEmailAddress() != null && !$P{student}.getPersonalData().getEmailAddress().equals("")]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{student}.getPersonalData().getEmailAddress()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="666523ec-c1e5-4a14-959d-53ddd42c217a" x="142" y="233" width="371" height="15">
+					<property name="ireport.layer" value="1"/>
+					<printWhenExpression><![CDATA[$P{student}.getPersonalData().getPhoneNumber() != null && !$P{student}.getPersonalData().getPhoneNumber().equals("")]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{student}.getPersonalData().getPhoneNumber()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="9acbae1d-2769-4a3d-9336-f6dfb9db8ff6" x="0" y="257" width="553" height="153">
+					<property name="ireport.layer" value="2"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[Képzésben résztvevő (továbbiakban hallgató) között az alulírott helyen és napon az alábbi feltételek szerint:
+1. Képzésre vonatkozó adatok:
+    1.1: A képzés menevezése:
+    1.2: A tanfolyam azonosító száma:
+    1.3: A képzés helye:
+    1.4 A képzés időtartama, beosztása, létszáma:
+        1.4.1. Képzés kezdete:                                                       Képzés vége:
+        1.4.2. Időbeosztás:
+        1.4.3. Létszám:    fő
+1.6 A képzés díja:
+    1.6.1.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c514e917-258d-41ce-8c2c-fa6fb828db3b" x="0" y="498" width="553" height="241">
+					<property name="ireport.layer" value="2"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[2. A hallgató teljesítményének ellenőrzése és értékelése tanfolyami modulonként, záróteszt alapján történik.
+3. A képző intézmény kötelezettségvállalása és szerződésszegésének következményei
+3.1 Képző intézmény vállalja a fentiekben részletezett képzés lebonyolítását, a szükséges személyi és tárgyi feltételek biztosítását.
+3.2 A szerződésszegés következményeit részletesen a szerződés mellékleteként átadott ÁLTALÁNOS SZERZŐDÉSI FELTÉTELEK tartalmazza.
+4. A hallgató részletfizetés esetén a részleteket a megjelölt határidőig befizeti, ellenkező esetben a nyelviskola az ügy rendezését ügyvédi úton bonyolítja le.
+
+Felek jelen szerződést és az ÁSZF-et elolvasták és mint akaratukkal mindenben megegyezőt  aláírásukkal jóváhagyták.
+
+
+Feliratkozom a VIST havi hírlevelére:                IGEN                              NEM
+
+
+Kelt: Szigetszentmiklós]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3a80a8c2-cb71-45c9-9dcd-b46b15f7a785" x="0" y="757" width="553" height="45">
+					<property name="ireport.layer" value="2"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[
+             ...........................................................                                  ...................................................................
+                   A Mayflower BT képviselője                                                                                                     ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="83d193d3-b4dc-46cd-b2d0-1e12e34bfe1f" x="0" y="164" width="142" height="97">
+					<property name="ireport.layer" value="2"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<text><![CDATA[           Név:
+           Anyja neve:
+           Születési hely és idő:
+           Állandó lakcím:
+           Email:
+           Telefonszám:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="3046283a-4b82-47bb-970b-2212c1cb904f" x="149" y="285" width="304" height="15">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{courseTitle}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="da030a91-47bb-4d18-8a78-2ee878fd7bc2" x="183" y="299" width="165" height="15">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{course}.getCourseId()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="d4531fcb-ffbe-4839-94f2-fafc8171eafb" x="113" y="313" width="228" height="15">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{coursePlace}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="7a58f755-7b6a-4390-86c5-66459cc0356f" x="374" y="341" width="155" height="15">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{courseEndDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="82a12e87-15ab-4ea0-a214-da4e1d524684" x="137" y="341" width="130" height="15">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{courseStartDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1dab72f8-8566-4ba1-b220-c939fb649dfe" x="120" y="354" width="154" height="15">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{courseSchedule}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="2704bf04-bdf8-4feb-bdc2-bcef642f7b28" x="102" y="368" width="100" height="15">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{numberOfStudents}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="54fedaf4-59df-49cb-98c7-ca6f2f677a9f" x="47" y="395" width="192" height="15">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{priceStr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="91fc4b1c-0849-4b94-bf24-519fb0bfb05e" x="37" y="410" width="364" height="70"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{preiceDetailsStr}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="eac81c2b-53a7-46f1-aae6-9e6920005411" x="117" y="719" width="261" height="25">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{currDateStr}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="58bbbbf3-a1d4-445a-861a-f4313a7c2dca" x="304" y="784" width="225" height="15">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement textAlignment="Center">
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{student}.getPersonalData().getLastName() + " " + $P{student}.getPersonalData().getFirstName()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:jee="http://www.springframework.org/schema/jee" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:util="http://www.springframework.org/schema/util"
+	 
+	xsi:schemaLocation="http://www.springframework.org/schema/aop   
+	http://www.springframework.org/schema/aop/spring-aop-3.1.xsd  
+			http://www.springframework.org/schema/task 
+		http://www.springframework.org/schema/task/spring-task-3.1.xsd
+		http://www.springframework.org/schema/util         http://www.springframework.org/schema/util/spring-util-2.0.xsd
+	http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd         http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.1.xsd         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+    <!--
+        This will automatically locate any and all property files you have
+        within your classpath, provided they fall under the META-INF/spring
+        directory. The located property files are parsed and their values can
+        then be used within application context files in the form of
+        ${propertyKey}.
+    -->
+    
+    <context:property-placeholder location="classpath*:META-INF/spring/*.properties,classpath:vistadmin/*.properties" system-properties-mode="OVERRIDE"/>
+    
+    <!--
+        Turn on AspectJ @Configurable support. As a result, any time you
+        instantiate an object, Spring will attempt to perform dependency
+        injection on that object. This occurs for instantiation via the "new"
+        keyword, as well as via reflection. This is possible because AspectJ
+        is used to "weave" Roo-based applications at compile time. In effect
+        this feature allows dependency injection of any object at all in your
+        system, which is a very useful feature (without @Configurable you'd
+        only be able to dependency inject objects acquired from Spring or
+        subsequently presented to a specific Spring dependency injection
+        method). Roo applications use this useful feature in a number of
+        areas, such as @PersistenceContext injection into entities.
+    -->
+    <context:spring-configured/>
+    <!--
+        This declaration will cause Spring to locate every @Component,
+        @Repository and @Service in your application. In practical terms this
+        allows you to write a POJO and then simply annotate the new POJO as an
+        @Service and Spring will automatically detect, instantiate and
+        dependency inject your service at startup time. Importantly, you can
+        then also have your new service injected into any other class that
+        requires it simply by declaring a field for your service inside the
+        relying class and Spring will inject it. Note that two exclude filters
+        are declared. The first ensures that Spring doesn't spend time
+        introspecting Roo-specific ITD aspects. The second ensures Roo doesn't
+        instantiate your @Controller classes, as these should be instantiated
+        by a web tier application context. Refer to web.xml for more details
+        about the web tier application context setup services.
+        
+        Furthermore, this turns on @Autowired, @PostConstruct etc support. These 
+        annotations allow you to use common Spring and Java Enterprise Edition 
+        annotations in your classes without needing to do any special configuration. 
+        The most commonly used annotation is @Autowired, which instructs Spring to
+        dependency inject an object into your class.
+    -->
+    <context:component-scan base-package="org.vist.vistadmin">
+        <context:exclude-filter expression=".*_Roo_.*" type="regex"/>
+        <context:exclude-filter expression=".*_web.*" type="regex"/>
+        <context:exclude-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+    </context:component-scan>
+    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+        <property name="driverClassName" value="${database.driverClassName}"/>
+        <property name="url" value="${database.url}"/>
+        <property name="username" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="timeBetweenEvictionRunsMillis" value="1800000"/>
+        <property name="numTestsPerEvictionRun" value="3"/>
+        <property name="minEvictableIdleTimeMillis" value="1800000"/>
+        <!--property name="validationQuery" value="SELECT 1"/-->
+    </bean>
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <tx:annotation-driven mode="aspectj" transaction-manager="transactionManager"/>
+    <bean class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean" id="entityManagerFactory">    
+        <property name="persistenceXmlLocation" value="classpath:./META-INF/persistence.xml"/>        
+        <property name="dataSource" ref="dataSource"/>
+		<property name="persistenceUnitName" value="persistenceUnit"/>        
+        <property name="jpaVendorAdapter"> 
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"> 
+                <property name="databasePlatform" value="${hibernate.dialect}"/> 
+                <property name="showSql" value="${hibernate.showsql}" />                                
+            </bean> 
+        </property>
+        <property name="jpaProperties">
+            <!-- set extra properties here, e.g. for Hibernate: -->
+            <props>
+            	<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+            	<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+            	<prop key="hibernate.ejb.naming_strategy">org.hibernate.cfg.ImprovedNamingStrategy</prop>
+            	<prop key="hibernate.connection.charSet">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+    
+    <jdbc:initialize-database data-source="dataSource">
+  		<jdbc:script location="classpath:sql/${testdata.sql}"/>  		
+    </jdbc:initialize-database>
+    
+    <task:annotation-driven/>
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+  		<property name="host" value="smtp.gmail.com"/>
+  		<property name="port" value="587"/>
+  		<property name="protocol" value="smtp"/>
+        <property name="username" value="${email.server.username}"/>
+        <property name="password" value="${email.server.password}"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.smtp.quitwait">false</prop>
+            </props>
+        </property>
+	</bean>
+    
+    <bean id="templateMessage" class="org.springframework.mail.SimpleMailMessage">
+  		<property name="from" value="vistadmin@vilagnyelvek.hu"/>
+  		<property name="subject" value="VISTADMIN - teszt"/>
+	</bean>
+
+	<util:properties id="email_props">
+         <prop key="email.to">${email.to}</prop>
+         <prop key="email.cc">${email.cc}</prop>
+         <prop key="email.send">${email.send}</prop>
+         <prop key="email.site.url">${email.site.url}</prop>
+         <prop key="email.sysadmin.to">${email.sysadmin.to}</prop>         
+	</util:properties>
+	
+	<util:properties id="system_props">
+         <prop key="db.dump.command">${db.dump.command}</prop>
+         <prop key="db.archive.do">${db.archive.do}</prop>                         
+	</util:properties>
+	
+	<util:properties id="google_props">
+         <prop key="calendar.account.name">${calendar.account.name}</prop>
+         <prop key="calendar.account.password">${calendar.account.password}</prop>
+         <prop key="calendar.url.room1">${calendar.url.room1}</prop>
+         <prop key="calendar.url.room2">${calendar.url.room2}</prop>
+         <prop key="calendar.url.room3">${calendar.url.room3}</prop>
+         <prop key="calendar.url.room4">${calendar.url.room4}</prop>
+         <prop key="calendar.url.room5">${calendar.url.room5}</prop>
+	</util:properties>
+	
+	<import resource="jasper-views.xml"/>
+</beans>

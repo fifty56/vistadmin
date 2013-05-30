@@ -1,0 +1,75 @@
+<div xmlns:spring="http://www.springframework.org/tags" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+  <jsp:directive.page contentType="text/html;charset=UTF-8" />
+  <jsp:output omit-xml-declaration="yes" />
+  <spring:message var="app_name" code="application_name" htmlEscape="false" />
+  <spring:message var="title" code="welcome_titlepane" arguments="${app_name}" htmlEscape="false" />
+  <util:panel id="title" title="${title}">
+    <h3>
+      <spring:message code="welcome_h3" arguments="${app_name}" />
+    </h3>
+    <p>
+      <spring:message code="welcome_text" />
+    </p>
+    <p>
+    MUST HAVE TODO:
+    <ul>    	    	    			    	
+        <li>TODO-k</li>            	            	    	    	
+        
+        <li>heti status emaiulbe beletenni, az aktualis koltsegvetes ertekeit</li>
+        <li>megnezni melyik ceges tanfolyamok nem AFA-sak (elkuldeni suzannak), es erre validaciot tenni</li>        
+        <li>completed class-hoz AFA-s vagy nem kapcsolo</li>
+        <li>az interval oldalra checkbox, hogy csak azoknak a tanfolyamoknak a ki es beveteleit szamolja, 
+        amik az adott periodusban aktivak</li>        
+        
+		<li>courStudent-nel (es minden masnal) ha validacios hiba van a combo-kat ujra kell inicializalni - most mindent feltolt</li>																																		
+		<li>mailchimp synch tanarok, uj diakok, regi diakok - egy gomb legyen erre</li>				
+		<li>kereso oldalak: diak, tanar</li>
+		<li>figyelmezteto email kuldese, email templatek</li>		
+		<li>tanarok login</li>				
+    	<li>szamlazas</li>    			
+    </ul> 
+    SHOULD HAVE TODO:
+    <ul>
+        <li>minden finder-t atnezni, hogy ha van benne course/student/teacher akkor ellenorinzi, kell-e archiv-ra szurni</li>		
+    	<li>szurok hozzaadasa a listakhoz, keresesek</li>
+    	<li>relacios oldalaknal a select option-ok szukitese: kiveni a mar hozza assignoltakat is, </li>
+    	<li>relacios oldalaknal ahol from-to datum van courseList.onchange-re frissiteni a datumokat</li>
+    	<li>status email hetente:
+	<ul>
+		<li>osszes nyitott tanfolzamhoz varhato befizetesek osszege</li>
+		<li>osszes nyitott tanfolzamhoz varhato kifizetesek osszege</li>
+		<li>ezek kulonbsege</li>
+		<li>havi lebontasban, kiadas (az adott honap elotti honapban letanitott, mar kifzetett orak), bevetel (adott honapi befizetesek), ezek kulonbsege</li>
+		<li>2 hettel a vegdatumat elero tanfolyamora hivja fel a figyelmet</li>
+		<li>a vegdatumat elhagyo, de meg nem arhiv tanfolyamora hivja fel a figyelmet</li>
+                <li>osszes draft tanfolyam ami tobb mint 2 hete bent van listazasa</li>
+	</ul>
+	</li>
+    </ul>    
+    <hr/>
+    FIXED:
+    <ul>
+    	<li>(2012-07-06) tanfolyamoknal orak megadasa: nap idopont tol-ig, orak szama</li>
+     	<li>(2012-07-09) diakoknal uj mezo: ceg/nem ceg, ha ceg akkor diakok neveit meg lehessen adni</li>
+     	<li>(2012-07-09) letanitott orhoz uj mezo: szamla sorszama</li>
+		<li>(2012-07-09) letanitott orahoz kifizetesi hatarido</li>
+		<li>(2012-07-09) tanfolyam befizeteshez hatarido</li>
+		<li>(2012-07-18) letoltheto oralap</li>
+		<li>(2012-07-18) a status email tartalmazza a befizetesi hataridoket</li>
+		<li>(2012-07-19) amikor letanitott orat felvisz kiirni hogy keletkezett hozza tanfolyam befizetes</li>
+		<li>(2012-07-23) tanfolyam masolas</li>
+		<li>(2012-07-23) tanfolyamnal megadhato hogy ceges vagy nem ceges:<ul>
+			<li>ceges tanfolyamhoz csak ceges diakot lehet hozzarendelni</li>
+			<li>egy ceges tanfolyamhoz csak 1 diak tartozhat</li>
+			<li>a diaknal megadott ceges tanulok neveit a tanulo tanfolyam osszerendelesnel lehet megadni</li>
+			<li>ha a diaknal ceges tanulo nevet akarod torolni es az hasznalva van vmelyik tanfolyamban akkor hiba jon</li>
+		</ul></li>
+		<li>(2012-07-26) letanitott orahoz uj mezo: van-e kozte probaora (ha igen egyel kevesebbel szamol amikor a befizetest csinalja)</li>
+		<li>(2012-07-26) ceges courseStudent: tanulokat innen tenni ki az oralapra</li>		
+		<li>(2012-07-26) oralap nyomtataskor, ha meg nem indult el a tanfolyam (kezdes datuma szerint, de a statusza mar elindult) akkor az elso tanar (ha tobb van) es minden diak kikerul</li>
+		<li>(2012-07-30) tanarok oralap letoltes: instant </li>
+		<li>(2012-07-30) instant tanfolyamhoz uj mezok: csomag (alap, vip), tipus (havi, havi dupla, kéthavi, kéthavi dupla, havi intenzív) </li>
+    </ul>
+    </p>
+  </util:panel>
+</div>

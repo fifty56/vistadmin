@@ -1,0 +1,166 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" 
+ 	 xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+ 	 xmlns:vist="urn:jsptagdir:/WEB-INF/tags/vist"
+ 	 xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"	
+ 	 xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+ 	 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+ 	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+ 	 xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"  
+ 	 xmlns:spring="http://www.springframework.org/tags" 
+ version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+    
+    <spring:message code="label_payment_balance" var="label_course_payment_balance" htmlEscape="false"/>
+    <spring:message code="label_income" var="label_income"  htmlEscape="false"/>
+    <spring:message code="label_expense" var="label_expense"  htmlEscape="false"/>
+        	
+       	
+    <c:set var="total_currIncome" value="0"/>
+    <c:set var="total_remGrossIncome" value="0"/>
+    <c:set var="total_allGrossIncome" value="0"/>
+    <c:set var="total_allNetIncome" value="0"/>
+    <c:set var="total_remNetIncome" value="0"/>
+    <c:set var="total_currExpense" value="0"/>
+    <c:set var="total_remGrossExpense" value="0"/>
+    <c:set var="total_remCurrNetExpense" value="0"/>
+    <c:set var="total_remNetExpense" value="0"/>    
+    <c:set var="total_remAllExpense" value="0"/>
+    <c:set var="total_allExpense" value="0"/>    
+    <c:set var="total_totalBalance" value="0"/>
+    <c:set var="total_remIncomeFromComplClass" value="0"/>
+    
+    <ol>    	
+    <c:forEach items="${courses}" var="course" varStatus="varstat">
+    
+    <div id="course_${course.id}">        
+    
+    	<p>                		
+    		<spring:url value="/courses/${course.id}" var="url_course">
+			</spring:url>		          		
+    	       
+    		<li>Tanfolyam: <a href="${url_course}">${course.courseId}</a></li>
+        	<util:panel id="payment_balance_of_course_${course.id}" title="${label_course_payment_balance}" openPane="false">
+        	    <p><b>${label_income}</b></p>
+		        <field:display field="currGrossIncomeByCI" id="s_org_vist_vistadmin_domain_course_currincome" object="${course}" z="0"/>
+		        <field:display field="remGrossIncome" id="s_org_vist_vistadmin_domain_course_remincome" object="${course}" z="0"/>		        
+		        <field:display field="allGrossIncome" id="s_org_vist_vistadmin_domain_course_allgrossincome" object="${course}" z="0"/>
+		        <field:display field="allNetIncome" id="s_org_vist_vistadmin_domain_course_allnetincome" object="${course}" z="0"/>
+		        
+		        <p><b>${label_expense}</b></p>
+		        <field:display field="currGrossExpenseByCC" id="s_org_vist_vistadmin_domain_course_currexpense" object="${course}" z="0" fielddesc="${currExpense_comment}"/>
+		        <field:display field="remCurrGrossExpenseByCC" id="s_org_vist_vistadmin_domain_course_remexpense" object="${course}" z="0" fielddesc="${remCurrGorssExpense_comment}"/>		        
+		        		        <c:choose>
+		        	<c:when test="${course.payPerClasses}">
+		        		<field:display field="remNetExpense" id="s_org_vist_vistadmin_domain_course_remnetexpense" object="${course}" z="0" fielddesc=""/>
+		        		<field:display field="allGrossExpenseByCC" id="s_org_vist_vistadmin_domain_course_remallexpense" object="${course}" z="0" fielddesc="${remAllExpense_comment}"/>		        				        		
+		        	<!-- field:display field="allExpenseWithTeacherVAT" id="s_org_vist_vistadmin_domain_course_allexpense" object="${course}" z="0"  fielddesc="${allExpenseWithTeacherVAT_comment}"/-->
+		        	</c:when>
+		        	<c:otherwise>
+		        		<field:display field="remNetExpense" id="s_org_vist_vistadmin_domain_course_remnetexpense" object="${course}" z="0" fielddesc="${remNettExpense_comment}"/>
+		        		<field:display field="allNetExpense" id="s_org_vist_vistadmin_domain_course_remallexpense" object="${course}" z="0" fielddesc="${allNettExpense_comment}"/>                	
+                	</c:otherwise>
+		      	</c:choose>
+
+		        
+		        <p>
+		        <b><field:display field="totalNetBalance" id="s_org_vist_vistadmin_domain_course_totalbalance" object="${course}" z="0"/></b>
+		        
+		        <c:set var="total_currIncome" value="${total_currIncome + course.currGrossIncomeByCI}"/>
+		        <c:set var="total_remGrossIncome" value="${total_remGrossIncome + course.remGrossIncome}"/>
+		        <c:set var="total_allGrossIncome" value="${total_allGrossIncome + course.allGrossIncome}"/>
+		        <c:set var="total_currExpense" value="${total_currExpense + course.currGrossExpenseByCC}"/>
+		        <c:set var="total_remGrossExpense" value="${total_remGrossExpense + course.remCurrGrossExpenseByCC}"/>
+		        <c:set var="total_remCurrNetExpense" value="${total_remCurrNetExpense + course.remCurrNetExpenseByCC}"/>
+		        
+		        <!-- c:set var="total_remAllExpense" value="${total_remAllExpense + course.remAllExpense}"/-->
+		        <!-- c:set var="total_allExpense" value="${total_allExpense + course.allExpense}"/-->
+		        <c:set var="total_totalBalance" value="${total_totalBalance + course.totalNetBalance}"/>
+		        <c:set var="total_remIncomeFromComplClass" value="${total_remIncomeFromComplClass + course.remCurrGrossIncomeByCI}"/>		         
+		        <c:set var="total_remNetExpense" value="${total_remNetExpense + course.remNetExpense}"/>
+		        <c:set var="total_allNetIncome" value="${total_allNetIncome + course.allNetIncome}"/>
+		        <c:set var="total_remNetIncome" value="${total_remNetIncome + course.remNetIncome}"/>
+		        </p>		                		        
+        	</util:panel>
+        </p>        
+    	</div>
+    </c:forEach>
+    </ol>
+    
+    <spring:message code="label_org_vist_vistadmin_domain_course_currincome" var="label_currincome"  htmlEscape="false"/>
+    <spring:message code="label_org_vist_vistadmin_domain_course_remincome" var="label_remincome"  htmlEscape="false"/>
+    <spring:message code="label_org_vist_vistadmin_domain_course_allgrossincome" var="label_allgrossincome"  htmlEscape="false"/>
+    <spring:message code="label_org_vist_vistadmin_domain_course_currexpense" var="label_currexpense"  htmlEscape="false"/>
+    <spring:message code="label_org_vist_vistadmin_domain_course_remexpense" var="label_remexpense"  htmlEscape="false"/>
+    <spring:message code="label_org_vist_vistadmin_domain_course_remallexpense" var="label_remallexpense"  htmlEscape="false"/>
+    <spring:message code="label_org_vist_vistadmin_domain_course_allexpense" var="label_allexpense"  htmlEscape="false"/>
+    <spring:message code="label_org_vist_vistadmin_domain_course_totalbalance" var="label_totalbalance"  htmlEscape="false"/>
+    
+    <p>
+    <div style="float:left;width:800px">
+    
+    	<div style="float:left;display:block;width:800px"><c:out value="${label_currincome}"/>: <fmt:formatNumber maxFractionDigits="1" value="${total_currIncome}"/></div>
+    	
+    	<div style="float:left;display:block;width:400px"><c:out value="Hátralévő felvitt befizetés"/>: <fmt:formatNumber maxFractionDigits="1" value="${total_remIncomeFromComplClass}"/></div>    	
+    		<div style="float:right;display:block;width:400px;">Még be nem fizetett tanfolyam befizetések összege</div>
+    	
+    	<div style="float:left;display:block;width:800px"><p></p></div>
+    	
+    	<div style="float:left;display:block;width:400px"><b>Hátralévő összes befizetés (bruttó): <fmt:formatNumber maxFractionDigits="1" value="${total_remGrossIncome}"/></b></div>    	
+    		<div style="float:right;display:block;width:400px;">Ez tartalmazza a még be nem fizetett tanfolyam befizetéseket és a fix óraszámú tanfolyamok esetén a még hiányzó befizetéseket is</div>    	
+    	
+    	<div style="float:left;display:block;width:800px"><p></p></div>    
+
+    	<div style="float:left;display:block;width:400px"><b><c:out value="Hátralévő összes befizetés (nettó)"/>: <fmt:formatNumber maxFractionDigits="1" value="${total_remNetIncome}"/></b></div>
+    	
+    	<div style="float:left;display:block;width:800px"><p></p></div>    	     	 
+    	 
+    	<div style="float:left;display:block;width:800px"><c:out value="${label_allgrossincome}"/>: <fmt:formatNumber maxFractionDigits="1" value="${total_allGrossIncome}"/></div>
+    	
+    	<div style="float:left;display:block;width:800px"><p></p></div>
+    	
+    	<div style="float:left;display:block;width:800px"><c:out value="Összes befizetés (nettó)"/>: <fmt:formatNumber maxFractionDigits="1" value="${total_allNetIncome}"/></div>
+    	    	
+    	<div style="float:left;display:block;width:800px"><p></p></div>
+    	<div style="float:left;display:block;width:800px"><p></p></div>
+    	<div style="float:left;display:block;width:800px"><p></p></div>
+    	
+    	<div style="float:left;display:block;width:400px"><c:out value="${label_currexpense}"/>: <fmt:formatNumber maxFractionDigits="1" value="${total_currExpense}"/></div>
+    		<div style="float:right;display:block;width:400px;">Kifizetett letanított órák</div>
+        
+        <div style="float:left;display:block;width:800px"><p></p></div>
+    			
+    	<div style="float:left;display:block;width:400px"><b><c:out value="${label_remexpense}"/>: <fmt:formatNumber maxFractionDigits="1" value="${total_remGrossExpense}"/></b></div>
+    		<div style="float:right;display:block;width:400px;">Ki nem fizetett letanított órák</div>
+    	
+    	<div style="float:left;display:block;width:800px"><p></p></div>
+    	
+    	<div style="float:left;display:block;width:400px"><c:out value="Most kifizetendő (nettó)"/>: <fmt:formatNumber maxFractionDigits="1" value="${total_remCurrNetExpense}"/></div>
+    		<div style="float:right;display:block;width:400px;">Kifizetett letanított órák</div>
+    	
+    	<div style="float:left;display:block;width:800px"><p></p></div>
+    	
+    	<div style="float:left;display:block;width:400px"><b><c:out value="További kifizetések (nettó)"/>: <fmt:formatNumber maxFractionDigits="1" value="${total_remNetExpense}"/></b></div>
+    		<div style="float:right;display:block;width:400px;">A fix óraszámos tanfolyamoknál még ennyit kell majd kifizetni a tanároknak, nem tartalmazza a ki nem fizetett letanított órákat - nettó</div>
+    	
+    	
+    	<div style="float:left;display:block;width:800px"><p></p></div>
+    	<div style="float:left;display:block;width:800px"><p></p></div>
+    	
+    	<div style="float:left;display:block;width:800px"><b><c:out value="Tartozás (nettó)"/>: <fmt:formatNumber maxFractionDigits="1" value="${total_remNetExpense + total_remCurrNetExpense - total_remNetIncome}"/></b></div>
+    	
+    	<div style="float:left;display:block;width:800px"><p></p></div>
+    	
+    	<div style="float:left;display:block;width:800px"><c:out value="Tejles egyenleg (nettó)"/>: <fmt:formatNumber maxFractionDigits="1" value="${total_totalBalance}"/></div>    	
+    	
+    	
+    	
+    </div>
+    <div style="clear:both"></div>
+    </p>
+    <p></p>
+    <br/><br/>
+    
+</div>

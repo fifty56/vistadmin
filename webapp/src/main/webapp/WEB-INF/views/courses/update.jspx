@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" 
+xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:spring="http://www.springframework.org/tags" xmlns:spform="http://www.springframework.org/tags/form"
+xmlns:springform="http://www.springframework.org/tags/form"  version="2.0">
+     <spring:url value="/resources/js/classtimes.js" var="classtimes_url" />
+     <spring:url value="/resources/js/jquery-1.7.2.min.js" var="jquery_url" /> 
+	<script src="${jquery_url}" type="text/javascript"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+	 <script type="text/javascript">
+     	var jq = jQuery.noConflict();
+ 	 </script>
+	<script src="${classtimes_url}" type="text/javascript"/>	
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_org_vist_vistadmin_domain_Course" modelAttribute="course" path="/courses" versionField="Version" z="d+cZfABmDgidsYLCgznoGSRgIvI=">
+        <field:input field="courseId" id="c_org_vist_vistadmin_domain_Course_courseId" required="true" z="Jyi9lIlMxsM6ZyK5megYLIMWY7M="/>
+        <field:checkbox field="company" id="c_org_vist_vistadmin_domain_course_company" z=""/>
+        <field:select field="lang" id="c_org_vist_vistadmin_domain_Course_lang" items="${languageses}" path="languageses" required="true" z="vzCR4B/kBioXCPD6MqFEQbTILJw="/>        
+
+		<!-- field:select field="courseFormat" id="c_org_vist_vistadmin_domain_Course_courseFormat" items="${classformats}" path="classformats" required="true" z="8vxNj9L2F8gUKEzXuE5qqB9jDso="/-->
+		<spring:message code="label_org_vist_vistadmin_domain_course_courseformat" var="courseformat_label" htmlEscape="false" />
+		<div id="c_org_vist_vistadmin_domain_Course_courseFormat_id">
+	      		<label for="_courseFormat_id">	
+	        		<c:out value="${courseformat_label}" />:
+	      		</label>
+	      		<div>	      
+	      			<springform:select id="courseFormat" path="courseFormat" items="${classformats}" cssClass="customSelect">	      				
+	      			</springform:select>
+	      		</div>	      
+        	<br/>
+        </div>
+        
+        <c:set value="" var="instantDetails" />
+        <c:if test="${course.courseFormat  != 'INSTANT'  }">
+        	<c:set value="none" var="instantDetails" />
+        </c:if>
+        <div id="instant_course_details" style="display:${instantDetails};">
+        	<field:select  field="instantCourseFormat" id="c_org_vist_vistadmin_domain_course_instantcourseformat" items="${instantCourseFormats}" path="instantCourseFormats" required="false"/>
+        	<field:select field="instantCourseType" id="c_org_vist_vistadmin_domain_course_instantcoursetype" items="${instantCourseTypes}" path="instantCourseTypes" required="false"/>
+        </div>
+        
+        <field:select field="courseType" id="c_org_vist_vistadmin_domain_Course_courseType" items="${classtypes}" path="classtypes" required="true" z="p4rdToaRvT9mm2UeqbJJfb4U3vk="/>
+        <field:select field="courseLevel" id="c_org_vist_vistadmin_domain_Course_courseLevel" items="${classlevelses}" path="classlevelses" required="true" z="p4rdToaRvT9mm2UeqbJJfb4U3vk="/>
+		<field:select field="classSpecializationType" id="c_org_vist_vistadmin_domain_course_classspecializationtype" items="${classspecializations}" path="classlevelses" required="true" z="p4rdToaRvT9mm2UeqbJJfb4U3vk="/>
+        <field:select field="room" id="c_org_vist_vistadmin_domain_Course_room" items="${rooms}" path="rooms" required="true" z="0"/>
+        <field:datetime dateTimePattern="${vistadminDateFormat}" field="startDate" id="c_org_vist_vistadmin_domain_Course_startDate" required="true" z="59bG7Flit2SDOqd2HY0zIg2it0Y="/>
+        <field:datetime dateTimePattern="${vistadminDateFormat}" field="endDate" id="c_org_vist_vistadmin_domain_Course_endDate" required="true" z="vGG81EiavaC5WpJs2OoGfKHe8ps="/>
+        <field:select field="status" id="c_org_vist_vistadmin_domain_Course_status" items="${classstatuses}" path="classstatuses" required="true" z="d86DrfPRbzfpYw/kKlx+9Lw1/w4="/>
+        <field:input field="sumOfClasses" id="c_org_vist_vistadmin_domain_Course_sumOfClasses" required="true" z="LJeVTIRye7LrIa8HWG4b8WNk000="/>        
+		
+        <spring:message code="label_org_vist_vistadmin_domain_course_timeofclasses" var="timeofclasseslabel" htmlEscape="false" />
+		<div id="c_org_vist_vistadmin_domain_course_timeofclasses_id">
+		${course.flexibleClassTime}
+	      		<label for="_timeofclasses_id">	
+	        		<c:out value="${timeofclasseslabel}" />:
+	      		</label>
+	      	<div class="multidd_flex">
+	    	   	<spring:message code="label_course_timeofclasses_flexible" var="label_flexibleClassTime" htmlEscape="false" />
+	    	   	<c:choose>
+	    	   		<c:when test="${course.flexibleClassTime}">
+	    	   			<input type="checkbox" name="flexibleClassTime" id="_flexibleClassTime_id" checked="true"/>
+	    	   		</c:when>
+	    	   		<c:otherwise>
+	    	   			<input type="checkbox" name="flexibleClassTime" id="_flexibleClassTime_id"/>
+	    	   		</c:otherwise>
+	    	   	</c:choose>  		
+	      		<c:out value="${label_flexibleClassTime}"/><br/>
+	      	</div>	
+	        <div class="multidd_container" id="multidd_container">
+	            <div>
+	            	<input type="hidden" name="classTimesList" value="${course.classTimesList}" />
+		        	<select id="_classTimesList_id" name="classTimesList" class="multidd" multiple="true">
+		        		<c:forEach items="${classTimes}" var="classTime">
+		        			<option value="${classTime.id}">${classTime.label}</option>
+		        		</c:forEach>
+		        	</select>
+	        	</div>                
+	        	<div class="buttons">
+	        		<spring:message code="label_button_add" var="button_add" htmlEscape="false" />
+	        		<spring:message code="label_button_delete" var="button_delete" htmlEscape="false" />	          
+	 				<a href="#" id="add_cousetime"> &lt;&lt; ${button_add} </a><br/><br/>
+	 				<a href="#" id="remove_cousetime"> ${button_delete} &gt;&gt; </a>
+	 			</div>
+	 			<div class="datetime">
+		 			<spring:message code="label_course_timeofclasses_day" var="label_timeofclasses_day" htmlEscape="false" />
+		 			<c:out value="${label_timeofclasses_day}"/>: 
+		 			<select id="select_days">
+		        		<c:forEach items="${days}" var="day">
+		        			<option value="${day.id}">${day.label}</option>
+		        		</c:forEach>
+		        	</select>       				        	
+					<br/>
+					
+					<spring:message code="label_course_timeofclasses_from" var="label_timeofclasses_from" htmlEscape="false" />
+		 			<c:out value="${label_timeofclasses_from}"/>: 	        	         	         
+		 			<select id="select_from_hour">
+		        		<c:forEach items="${hours}" var="hour">
+		        			<option value="${hour}">${hour}</option>
+		        		</c:forEach>
+		        	</select>:
+		        	<select id="select_from_min">
+		        		<c:forEach items="${minutes}" var="minute">
+		        			<option value="${minute}">${minute}</option>
+		        		</c:forEach>
+		        	</select>                	         
+	        		<br/>
+	        		
+					<spring:message code="label_course_timeofclasses_till" var="label_timeofclasses_till" htmlEscape="false" />
+		 			<c:out value="${label_timeofclasses_till}"/>:         	 
+		        	<select id="select_till_hour">
+		        		<c:forEach items="${hours}" var="hour">
+		        			<option value="${hour}">${hour}</option>
+		        		</c:forEach>
+		        	</select>:
+		        	<select id="select_till_min">
+		        		<c:forEach items="${minutes}" var="minute">
+		        			<option value="${minute}">${minute}</option>
+		        		</c:forEach>
+		        	</select>
+		        	<br/>
+		        	
+					<spring:message code="label_course_timeofclasses_number" var="label_timeofclasses_number" htmlEscape="false" />
+		 			<c:out value="${label_timeofclasses_number}"/>: 		        	
+		        	<select id="select_class_number">
+		        		<option value="1">1</option>
+		        		<option value="2">2</option>
+		        		<option value="3">3</option>
+		        		<option value="4">4</option>
+		        		<option value="5">5</option>
+		        		<option value="6">6</option>	        		
+		        	</select>
+	        	</div> 
+	        </div>
+		</div>
+
+
+        <field:input field="book" id="c_org_vist_vistadmin_domain_Course_book" z="+BtB7Zv3ZuMfzxz6OX6KxJxxXlc="/>
+        <field:checkbox field="vat" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_vat" z="KVTPo4BSBp8UC+hIofOhxpRmtAY="/>        
+        <field:checkbox field="payPerClasses" id="c_org_vist_vistadmin_domain_Course_payPerClasses" z="KVTPo4BSBp8UC+hIofOhxpRmtAY="/>
+        <field:input field="moneyPerStudent" id="c_org_vist_vistadmin_domain_Course_moneyPerStudent" z="ngxVQ1QlfNbE/WFj2fdn4thjT0M="/>
+        <field:input field="teacherClassPrice" id="c_org_vist_vistadmin_domain_Course_teacherClassPrice" z="Zm40TVYW4DJRyZWym+j2Xr72nPY="/>
+        <field:textarea field="comment" id="c_org_vist_vistadmin_domain_Course_comment" z="0"/>
+        <input type="hidden" name="creationDate" value="${course.creationDate}"/>        
+    </form:update>
+</div>

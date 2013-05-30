@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div  xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+    <form:update id="fu_org_vist_vistadmin_domain_Teacher" modelAttribute="teacher" path="/teachers" versionField="Version" z="fD4bwsSYT/TGBSCYt1FnSqKqZEM=">        
+        <field:input field="personalData.lastName" id="c_org_vist_vistadmin_domain_Studentx_lastName" required="true" z="0"/>
+        <field:input field="personalData.firstName" id="c_org_vist_vistadmin_domain_Studentx_firstName" required="true" z="0"/>
+        <field:input field="personalData.emailAddress" id="c_org_vist_vistadmin_domain_Studentx_emailAddress" required="true" validationMessageCode="field_invalid_email" z="0"/>
+        <field:input field="personalData.phoneNumber" id="c_org_vist_vistadmin_domain_Studentx_phoneNumber" z="0"/>
+        <field:datetime dateTimePattern="${vistadminDateFormat}" field="personalData.bornDate" id="c_org_vist_vistadmin_domain_Studentx_bornDate" z="0"/>
+        <field:select field="languages" id="c_org_vist_vistadmin_domain_Teacher_languages"  multiple="true" items="${languageses}" path="languageses" z="B6t0entig6W9iORGionrDH0G7OM="/>
+        <field:select field="status" id="c_org_vist_vistadmin_domain_personstatus" items="${personstatuses}" path="personstatuses" required="true" z=""/>
+        
+        <p>
+        <spring:message code="label_address" var="label_address"/>
+        <util:panel id="teacher_address_panel" title="${label_address}" openPane="true">
+        	<input type="hidden" name="address.id" value="${teacher.address.id}"/>
+			<input type="hidden" name="address.version" value="${teacher.address.version}"/>
+        	<field:input field="address.zipAddress" id="c_org_vist_vistadmin_domain_Studentx_zipAddress"  z=""/>
+        	<field:input field="address.city" id="c_org_vist_vistadmin_domain_Studentx_city" z=""/>
+        	<field:input field="address.street" id="c_org_vist_vistadmin_domain_Studentx_street" z=""/>
+        </util:panel>
+        </p>
+        
+        <p>
+        <spring:message code="label_teacher_billing_data" var="label_teacher_billing_data"/>
+        <util:panel id="teacher_teacher_billing_data_panel" title="${label_teacher_billing_data}" openPane="true">
+        	<input type="hidden" name="teacherBillingData.id" value="${teacher.teacherBillingData.id}"/>
+			<input type="hidden" name="teacherBillingData.version" value="${teacher.teacherBillingData.version}"/>
+			<field:input field="teacherBillingData.name" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_name" z="0"/>	        	        
+	        <field:input field="teacherBillingData.address.zipAddress" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_address_zipaddress"  z="3II3UkCx9QbOK2KSWYipPv5e6/c="/>
+	        <field:input field="teacherBillingData.address.city" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_address_city" z="Cz5vg/I8NNGvCFvfKFm4xoOkn1Y="/>
+	        <field:input field="teacherBillingData.address.street" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_address_street" z="TZ/9WhLAdOZYTL71kGmxGllfUPU="/>
+	        <field:input field="teacherBillingData.taxNumber" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_taxnumber" z="0"/>
+	        <field:input field="teacherBillingData.accountNumber" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_accountnumber" z="0"/>
+	        <field:input field="teacherBillingData.companyNumber" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_companynumber" z="0"/>
+	        <field:checkbox field="teacherBillingData.VAT" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_vat" z="KVTPo4BSBp8UC+hIofOhxpRmtAY="/>
+        </util:panel>
+        </p>
+        
+        <field:textarea field="comment" id="c_org_vist_vistadmin_domain_Course_comment" z="0"/>
+        
+    </form:update>
+</div>

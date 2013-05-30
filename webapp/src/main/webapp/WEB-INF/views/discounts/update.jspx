@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spform="http://www.springframework.org/tags/form"  version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:update id="fu_org_vist_vistadmin_domain_Discount" modelAttribute="discount" path="/discounts" versionField="Version" z="yHB5LTixPpz5ZETpDMiRDSy0640=">
+        <field:input field="name" id="c_org_vist_vistadmin_domain_Discount_name" required="true" z="m3qM+aos9vIE4drYGRCUdzjBiX0="/>
+        <field:select field="type" id="c_org_vist_vistadmin_domain_Discount_type" items="${discounttypes}" path="discounttypes" z="gzkeXs3FfD72hCZSPRkh03p5iag="/>
+        <field:input field="amount" id="c_org_vist_vistadmin_domain_Discount_amount" required="true" z="TOEw6K8HVnORFv31WQZmcJLV0Po="/>
+        <field:input field="comment" id="c_org_vist_vistadmin_domain_Discount_comment" z="HpMFskDYyDKb3FvbNhrdpFSChC0="/>
+    </form:update>
+</div>

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="student_company" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="96c82e88-fb37-4946-948a-d305650c163b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="course" class="org.vist.vistadmin.domain.Course"/>
+	<parameter name="student" class="org.vist.vistadmin.domain.Student"/>
+	<parameter name="contractNumber" class="java.lang.String"/>
+	<parameter name="studentAddress" class="java.lang.String"/>
+	<parameter name="courseStudentNames" class="java.lang.String"/>
+	<parameter name="courseSchedule" class="java.lang.String"/>
+	<parameter name="courseEndDate" class="java.lang.String"/>
+	<parameter name="courseStartDate" class="java.lang.String"/>
+	<parameter name="courseTitle" class="java.lang.String"/>
+	<parameter name="courseAddress" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="802" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="85a0f03d-f537-4551-8ded-34db8833cb85" x="0" y="0" width="166" height="68"/>
+				<textElement/>
+				<text><![CDATA[VIST - VILÁGNYELVEK STÚDIÓJA
+Tel.: 06-30-347-1607
+info@vilagnyelvek.hu
+www.vilagnyelvek.hu
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="bde9d85a-c3bc-4bfe-b5eb-2a06da6a3478" x="334" y="0" width="214" height="20">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA["Szerződésszám:" + $P{contractNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e2116778-a565-44c0-9e14-eec65a0458f2" x="158" y="62" width="238" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true" pdfEncoding="Cp1252"/>
+				</textElement>
+				<text><![CDATA[OKTATÁSI SZERZÕDÉS]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement uuid="8c670974-90fd-4ec7-916b-fa14926265c2" x="0" y="102" width="555" height="98"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font fontName="SansSerif" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["<p>Jelen szerződés a " +
+$P{student}.getBillingAddress().getName()
++" megbízó (cím: "+ $P{studentAddress} +", adószám: " +
+$P{student}.getCompanyData().getTaxNumber()
++", cégjegyzékszám: "+
+$P{student}.getCompanyData().getRegNumber()
++") a továbbiakban <b>Megbízó</b>, valamint a <b>Mayflower BT</b>, (2310, Szigetszentmiklós, Bíró Lajos u. 111., adószám: 22250320-2-13, felnőttképzési reg. szám: 13-0173-07, cégjegyzékszám: 13-06-056201) mint megbízott, a továbbiakban <b>Megbízott</b> között jött létre az alábbi tartalommal és feltételekkel:"+
+"<br>"+
+"<br>"+
+"<u>1.	A szerződés tárgya</u>"+
+"<br>"+
+"<br>"+
+"A Megbízott vállalja, hogy Megbízó tanulója részére a " + $P{courseAddress} +
+" nyelvoktatást tart a jelen szerződésben meghatározott feltételek szerint."+
+"<br>"+
+"A Képzés megnevezése: " + $P{courseTitle} + "<br>"+
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tanuló(k) neve(i): " + $P{courseStudentNames} + "<br>"+
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tanfolyam azonosító száma: " + $P{course}.getCourseId() + "<br>"+
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A tanfolyam szintje: " + $P{course}.getCourseLevel() + " szint<br>"+
+"<br><u>2.	A tevékenység feltételei</u>"+
+"<br>"+
+"<br>"+
+"2.1 Az oktatás 45 perces tanórákban történik, hetente " + $P{courseSchedule}.substring(0,1) + " alkalommal, alkalmanként " + $P{courseSchedule}.substring(2,3) + " órában."+
+"<br>"+
+"2.2 Az oktatás időtartamára a Megbízott biztosítja az oktatás megvalósításához szükséges általános, valamint szakmai kiegészítő anyagokat, az írásos, valamint az audio- és video-anyagokat, feladatlapokat."+
+"<br>"+
+"2.3 A Megbízott az oktatáson résztvevők tudásszintjének alakulásáról Megbízót, a jelenléti ívek leadásával, havonta, illetve a tanfolyam végén írásban tájékoztatja."+
+"<br>"+
+"2.4 Az oktatásokról minden alkalommal jelenléti ív készül. Az oktatáson való részvétel igazolása a megtartott tanórákon a jelenléti ív oktató és résztvevők általi aláírásával történik."+
+"<br>"+
+"<b>2.5</b> A Megbízó a tanórát az óra kezdetét megelőző 24 óránál korábbi értesítésével díjmentesen lemondhatja, <b>24 órán belüli lemondás esetében az adott alkalmat aláírásával igazolja az óralapon, és az órák kiszámlázásra kerülnek.</b>"+
+"<br>"+
+"<br>"+
+"<u>3.	Megbízott kötelezettségei</u>"+
+"<br>"+
+"<br>"+
+"3.1 Megbízott köteles mindent megtenni annak érdekében, hogy az oktatások eredményesek legyenek, és alkalmasak arra, hogy biztosítsák a résztvevők tudásszintjének folyamatos fejlődését."+
+"<br>"+
+"3.2 Az állandó oktató akadályoztatása esetén köteles helyettesről gondoskodni."+
+"<br>"+
+"3.3 Megbízott kötelezettsége gondoskodni arról, hogy az oktató az oktatások előre egyeztetett időpontjában és helyszínén megjelenjen, és a tanórákat megtartsa."+
+"<br>"+
+"3.4 Megbízott köteles továbbá figyelembe venni a Megbízó olyan indokolt kifogását, amely az oktatóval kapcsolatban Megbízónál felmerül és befolyásolhatja az oktatás eredményességét. Ilyen esetben amennyiben Megbízó kezdeményezi, úgy Megbízott az oktatás eredményességének biztosítása érdekében köteles helyettes oktatóról gondoskodni, úgy, hogy az oktatás menetét az ne befolyásolja."+
+"<br>"+
+"3.5 Megbízott köteles Megbízót minden olyan körülményről haladéktalanul értesíteni, amely a jelen szerződés teljesítésének eredményességét, minőségét vagy a határidőket veszélyezteti, vagy gátolja."+
+"<br>"+
+"<br>"+
+"<u>4	Megbízó kötelezettségei</u>"+
+"<br>"+
+"<br>"+
+"4.1 Megbízó tanulója a tanórák igazolására jelenléti íveket ír alá a résztvevők jelenlétének, illetve a Megbízott teljesítésének igazolása céljából."+
+"<br>"+
+"4.2 Megbízó vállalja, hogy jelen szerződés szerinti fizetési és egyéb kötelezettségének az itt meghatározott feltételek szerint eleget tesz."+
+"<br>"+
+"<br>"+
+"<u>5	Határidők</u>"+
+"<br>"+
+"<br>"+
+"Jelen szerződés érvényességének időtartama:"+
+"<br>"+
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A kezdés időpontja: " + $P{courseStartDate} +
+"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A befejezés időpontja: " + $P{courseEndDate} +
+"<br>"+
+"<br>"+
+"<br>"+
+"<br>"+
+"<u>6	Díj</u>"+
+"<br>"+
+"<br>"+
+"Jelen szerződésben foglaltak alapján a megbízás díja:"+
+"<br>"+
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + (new DecimalFormat("###,###.###", new org.vist.vistadmin.reporting.VistDecimalFormatSymbols()).format($P{course}.getMoneyPerStudent())) + " Ft + ÁFA / óra<br>"+
+($P{course}.getSumOfClasses() == 0 ? "" :
+("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + (new DecimalFormat("###,###.###", new org.vist.vistadmin.reporting.VistDecimalFormatSymbols()).format($P{course}.getMoneyPerStudent() * $P{course}.getSumOfClasses())) + " Ft + ÁFA/" + $P{course}.getSumOfClasses() + " óra<br>")) +
+"<br>A díj tartalmazza a Megbízott összes költségét, beleértve az utazási költségeket, többletköltség felszámolására Megbízott nem jogosult. Az ár nem tartalmazza a tankönyveket."+
+"<br>"+
+"<br>"+
+"<u>7 	Teljesítés</u>"+
+"<br>"+
+"<br>"+
+"7.1  Jelen szerződés 1. pontjában meghatározott feladat teljesítettnek tekinthető, amennyiben 	Megbízott a tanórákat a szerződésben meghatározott feltételek szerint hiánytalanul és a 	megfelelő szakmai színvonalon megtartotta."+
+"<br>"+
+"7.2 A teljesítés igazolása a tanórákon készült, a résztvevők, valamint az oktató által aláírt jelenléti ívek alapján történik, havonként a tárgyhót követően."+
+"<br>"+
+"<br>"+
+"<u>8 	Fizetési feltételek</u>"+
+"<br>"+
+"<br>"+
+"8.1 Megbízó a szerződés aláírásával egy időben kiállított számla alapján 8 napon belül elutalja a tanfolyam díját a Megbízott CIB Bank ZRT-nél vezetett, 10700512-43610406-51100005 számú bankszámlájára."+
+"<br>"+
+"<br>"+
+"<u>9 	Együttműködés:</u>"+
+"<br>"+
+"<br>"+
+"9.1 Jelen szerződésben foglaltakkal kapcsolatos bármely értesítést írásban kell megtenni, 	és / vagy személyesen kézbesíteni, ill. átadni a kijelölt képviselőknek e-mail-ben, illetve postai úton."+
+"<br>"+
+"9.2 Jelen szerződés teljesítése során szerződő Felek kijelölt képviselői:"+
+"<br>"+
+"<br>"+
+"Megbízó részéről:    ............................"+
+"<br>"+
+"  Megbízott részéről: 	Bartha-Becskei Zsuzsanna"+
+"<br>"+
+"<br>"+
+"Megbízó és Megbízott jelen szerződés aláírásával kijelölt képviselőinek jogosultságot ad a szerződés teljesítésére irányulóan: állásfoglalásra, nyilatkozattételre, és a 7. fejezet szerinti teljesítésigazolásra, az értesítések átvételére. A kijelölt képviselők megváltoztatása értesítéssel valósítható meg."+
+"A kijelölt képviselők minden olyan kérdésben írásban állapodnak meg, melyek összefüggnek a szerződéssel, de nem jelentik annak módosítását."+
+"A szerződés módosítása csak szerződésmódosító közös nyilatkozatban, cégszerű aláírással történhet."+
+"<br>"+
+"<br>"+
+"<u>10 	Egyéb feltételek</u>"+
+"<br>"+
+"<br>"+
+"10.1 Jelen szerződés a teljes megállapodást testesíti meg szerződő Felek között és 	hatálytalanít 	minden egyéb korábbi írásos anyagot. A Feleket nem köti semmilyen, a 	szerződésben fel nem sorolt nyilatkozat, ellenvetés, ígéret, indoklás vagy megegyezés és 	nem is felelősek azokért. Bármely kikötés vagy feltétel módosítása vagy kiegészítése 	hatálytalan, ha nem fektetik le írásban, és a Felek kétoldalúan alá nem írták."+
+"<br>"+
+"10.2 Amennyiben Megbízott a vállalt kötelezettségeit nem jelen szerződésben meghatározott 	feltételek szerint teljesíti, illetve egyéb szerződésszegő magatartást tanúsít, úgy Megbízó 	jogosult a szerződés azonnali hatályú felmondására."+
+"<br>"+
+"<br>"+
+"10.3 Jelen szerződésből származó esetleges jogviták elkerülésére szerződő Felek megegyeznek abban, hogy a felmerülő vitás kérdéseket elsődlegesen egymás között - békés úton - rendezik. Amennyiben ez nem vezet eredményre úgy a Felek a Budapesti XX-XXI-XXIII kerületi Bíróság kizárólagos illetékességéhez 	fordulnak."+
+"<br>"+
+"<br>"+
+"Jelen szerződés 10 pontból áll, 2 eredeti példányban készült."+
+"<br>"+
+"<br>"+
+"Jelen szerződésben nem szabályozott kérdésekben a Ptk. rendelkezései irányadóak."+
+"<br>"+
+"<br>"+
+"Kelt: ….............., …......................."+
+"<br>"+
+"<br>"+
+"<br>"+
+"<b>Megbízó:</b>.............................................................."+
+"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Megbízó</span>"+
+"<br>"+
+"<br>"+
+"<br>"+
+"<b>Megbízott:</b>.............................................................."+
+"<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Bartha-Becskei Zsuzsanna (Mayflower BT)</span>"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

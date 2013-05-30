@@ -1,0 +1,323 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 	 
+		xmlns:spring="http://www.springframework.org/tags" 
+		xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+		xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+		xmlns:vist="urn:jsptagdir:/WEB-INF/tags/vist"
+		xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+		
+  <jsp:output omit-xml-declaration="yes" />
+  
+  <jsp:directive.attribute name="course" type="org.vist.vistadmin.domain.Course" required="true" rtexprvalue="true" description="The identifier of the root object" />
+  <jsp:directive.attribute name="completedClassList" type="java.util.Collection" required="false" rtexprvalue="true" description="The collection of the courses and students" />
+  <jsp:directive.attribute name="showCoursesCompletedClass" type="java.lang.Boolean" required="false" rtexprvalue="true" description="" />
+  <jsp:directive.attribute name="courseIncomeList" type="java.util.Collection" required="false" rtexprvalue="true" description="The collection of the courses and students" />
+  <jsp:directive.attribute name="showCourseIncome" type="java.lang.Boolean" required="false" rtexprvalue="true" description="" />
+  <jsp:directive.attribute name="showCourseBudget" type="java.lang.Boolean" required="false" rtexprvalue="true" description="" />
+  
+  
+  <spring:url value="/" var="url_home"/>
+  
+  <spring:message code="label_boolean_true" var="bool_true"  htmlEscape="false"/>
+  <spring:message code="label_boolean_false" var="bool_false"  htmlEscape="false"/>
+  
+    <spring:message code="label_org_vist_vistadmin_domain_courseincome_currdate" var="th_pdate"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_connection" var="th_connection" htmlEscape="false"/>
+  <spring:message code="label_completed_class_list" var="label_completed_class_list"  htmlEscape="false"/>
+  <spring:message code="label_course_income_list" var="label_course_incomes"  htmlEscape="false"/>            
+  <spring:message code="label_completed_class_to_course_relation_add" var="label_add_new_completed_class"  htmlEscape="false"/>
+  <spring:message code="label_income_to_course_relation_add" var="label_add_new_course_income"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_discount" var="label_discount" htmlEscape="false"/>
+                         
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_price" var="th_price"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_pricegross" var="th_pricegross"  htmlEscape="false"/>    
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_payed" var="th_payed"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_courseincome_payed" var="th_inpayed"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_student" var="th_student"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_teacher" var="th_teacher"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_date" var="th_date"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_numberofclasses" var="th_number_of_classes"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_ccdeadline" var="th_ccdeadline"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_ccpaymentdate" var="th_ccpaymentdate"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_cideadline" var="th_cideadline"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_cipaymentdate" var="th_cipaymentdate"  htmlEscape="false"/>
+  	<c:if test="${showCoursesCompletedClass}">
+  		<c:if test="${not empty completedClassList}">	
+  		
+  		<!-- completed classes of a course -->
+  		
+  		<p><util:panel id="completedclasses_of_course" title="${label_completed_class_list}" openPane="false">
+  		<table>
+  			<th>${th_teacher}</th>
+  			<th>${th_date}</th>
+  			<th>${th_number_of_classes}</th>
+  			<th>${th_pricegross}</th>  			  			
+  			<th>${th_ccdeadline}</th>
+  			<th>${th_payed}</th>
+  			<th>${th_ccpaymentdate}</th>
+  			<th></th>
+  			<c:forEach items="${completedClassList}" var="completedClass">
+                 <tr>
+                     <fmt:formatDate pattern="yyyy-MM-dd" value="${courseStudent.startDate}" var="startDate"/>
+                     
+                     <td>
+                         <a href="${url_home}teachers/${completedClass.teacher.id}">
+                             ${completedClass.teacher.personalData.lastName} ${completedClass.teacher.personalData.firstName}</a>                      			                                
+                     </td>
+                     <td>
+                     	<spring:message code="select_option_completedclass_month_${completedClass.compMonth}" var="compmonth" htmlEscape="false"/>
+                     	<c:choose>
+                     		<c:when test="${completedClass.compWeek > -1}">
+                     			<spring:message code="select_option_completedclass_week" arguments="${completedClass.compWeek}" var="compweek" htmlEscape="false"/>		
+                     		</c:when>
+                     		<c:otherwise>
+                     			<spring:message code="select_option_completedclass_monthly" var="compweek" htmlEscape="false"/>
+                     		</c:otherwise>
+                     	</c:choose>
+                     
+                         ${completedClass.compYear} ${compmonth} ${compweek}
+                         
+                     </td>
+                     <td>
+                     	${completedClass.numberOfClasses}
+                     </td>
+                     <td>
+                     	${completedClass.expense}
+                     </td>
+                     <td>
+                     	<fmt:formatDate pattern="yyyy-MM-dd" value="${completedClass.deadlineDate}" var="deadlineDate"/>
+                     	${deadlineDate}
+                     </td>
+                     <td>
+                     	<c:choose>
+                     		<c:when test="${completedClass.payed}">
+                     			${bool_true}
+                     		</c:when>
+                     		<c:otherwise>
+                     			${bool_false}
+                     		</c:otherwise>
+                     	</c:choose>                     	
+                     </td>
+                     <td>
+                     	<c:if test="${completedClass.paymentDate != null}">
+                     		<fmt:formatDate pattern="yyyy-MM-dd" value="${completedClass.paymentDate}" var="paymentDate"/>
+                     		${paymentDate}
+                     	</c:if>
+                     </td>
+                     <td>                         
+                         <spring:url value="/resources/images/update.png" var="update_image_url"/>
+                         <spring:url value="/completedclasses/" var="update_rel_url"/>
+                         <a alt="${label_rel_modif}" href="${update_rel_url}/${completedClass.id}" title="${label_rel_modif}">
+                             <img alt="${label_rel_modif}" class="image" src="${update_image_url}" title="${label_rel_modif}"/>
+                         </a>
+                     </td>
+                 </tr>
+            </c:forEach>
+        </table>  	            
+        </util:panel>
+      </p>
+      </c:if>      
+      <p>            
+            <spring:url value="/completedclasses?form" var="url_add_new_comp_class">
+                <spring:param name="courseid" value="${course.id}"/>
+            </spring:url>
+            <a href="${url_add_new_comp_class}">${label_add_new_completed_class}</a>
+      </p>
+    </c:if>
+    
+
+
+
+
+
+  <c:if test="${showCourseIncome}">
+  	<c:if test="${not empty courseIncomeList}">
+  	  	
+  		<!-- course incomes of a course -->
+  		
+  		<p>
+  		<util:panel id="incomes_of_course" title="${label_course_incomes}" openPane="false">
+  		<table>
+  			<th>${th_student}</th>  			
+  			<c:choose>
+  				<c:when test="${course.payPerClasses}">
+  					<th>${th_connection}</th>
+  					<th>${th_price}</th>  					
+  				</c:when>
+  				<c:otherwise>  					
+  					<th>${th_price}</th>  			
+  				</c:otherwise>
+  			</c:choose>
+  			<th>${th_cideadline}</th>
+  			<th>${th_inpayed}</th>
+  			<th>${th_cipaymentdate}</th>
+  			<th></th>  			  			
+  			<c:forEach items="${courseIncomeList}" var="courseIncome">
+                 <tr>                                          
+                     <td>
+                         <a href="${url_home}students/${courseIncome.student.id}">
+                             ${courseIncome.student.personalData.lastName} ${courseIncome.student.personalData.firstName}</a>                      			                                
+                     </td>
+                     
+                     <c:choose>
+                            <c:when test="${courseIncome.course.payPerClasses}">
+                            	<td>
+                            	<vist:courseIncome courseIncome="${courseIncome}"/>
+                            	<!-- c:choose>
+                            		<c:when test="${courseIncome.courseStudentDiscountId == null}">
+                            		    <spring:message code="select_option_completedclass_month_${courseIncome.month}" var="compmonth" htmlEscape="false"/>
+				                     	<c:choose>
+				                     		<c:when test="${courseIncome.week > -1}">
+				                     			<spring:message code="select_option_completedclass_week" arguments="${courseIncome.week}" var="compweek" htmlEscape="false"/>		
+				                     		</c:when>
+				                     		<c:otherwise>
+				                     			<spring:message code="select_option_completedclass_monthly" var="compweek" htmlEscape="false"/>
+				                     		</c:otherwise>
+				                     	</c:choose>                     
+				
+				                         ${courseIncome.year} ${compmonth} ${compweek}
+
+                            		</c:when>
+                            		<c:otherwise>                                                 
+                            			<spring:url value="/coursestudentdiscounts/${courseIncome.courseStudentDiscountId}" var="url_discount"/>
+                     		    		<a href="${url_discount}">${label_discount}</a>
+                     		    		<c:choose>
+                            				<c:when test="${courseIncome.fixDiscount}">
+                            				 (FIX)
+                            				</c:when>
+                            				<c:otherwise>
+                            				 (%) ${courseIncome.year} ${compmonth} ${compweek}  
+                     	    				</c:otherwise>
+                     	    			</c:choose>
+                     	    		</c:otherwise>
+                     			</c:choose-->
+                     			</td>
+                            </c:when>                            
+                     	</c:choose>
+                     
+                     <td>
+                     	<c:out value=" ${courseIncome.amount}"/>
+                     </td>
+                     <td>
+                     	<fmt:formatDate pattern="yyyy-MM-dd" value="${courseIncome.deadlineDate}" var="deadlineDate"/>
+                     	${deadlineDate}
+                     </td>
+                     <td>                     	 							 
+		   				<c:choose>
+                			<c:when test="${courseIncome.payed}">
+                				${bool_true}
+                			</c:when>
+                			<c:otherwise>
+                				${bool_false}
+                			</c:otherwise>
+                		</c:choose>       						
+					 </td>        
+					 <td>
+					 	<c:if test="${courseIncome.paymentDate != null}">
+                     		<fmt:formatDate pattern="yyyy-MM-dd" value="${courseIncome.paymentDate}" var="paymentDate"/>
+                     		${paymentDate}
+                     	</c:if>					 					 
+					 </td>             		                                          
+                     <td>                         
+                         <spring:url value="/resources/images/update.png" var="update_image_url"/>
+                         <spring:url value="/courseincomes/" var="update_rel_url"/>
+                         <a alt="${label_rel_modif}" href="${update_rel_url}/${courseIncome.id}" title="${label_rel_modif}">
+                             <img alt="${label_rel_modif}" class="image" src="${update_image_url}" title="${label_rel_modif}"/>
+                         </a>
+                     </td>
+                 </tr>
+            </c:forEach>
+        </table>  	           
+        </util:panel> 
+      </p>
+      </c:if>      
+      
+      <c:if test="${!course.payPerClasses}">
+          <p>            
+            <spring:url value="/courseincomes?form" var="url_add_new_course_income">
+                <spring:param name="courseid" value="${id}"/>
+            </spring:url>
+            <a href="${url_add_new_course_income}">${label_add_new_course_income}</a>
+         </p>
+      </c:if>
+    </c:if>
+    
+    
+    <c:if test="${showCourseBudget}">    	    
+    	<p>        
+        	<spring:message code="label_payment_balance" var="label_course_payment_balance" htmlEscape="false"/>
+        	<spring:message code="label_income" var="label_income"  htmlEscape="false"/>
+        	<spring:message code="label_expense" var="label_expense"  htmlEscape="false"/>	       
+        	
+        	<spring:message code="currIncome_comment" var="currIncome_comment"  htmlEscape="false"/>
+        	<spring:message code="remIncome_comment" var="remIncome_comment"  htmlEscape="false"/>
+        	<spring:message code="allIncome_comment" var="allIncome_comment"  htmlEscape="false"/>
+        	<spring:message code="currExpense_comment" var="currExpense_comment"  htmlEscape="false"/>
+        	
+        	<spring:message code="remAllExpense_comment" var="remAllExpense_comment"  htmlEscape="false"/>
+        	<spring:message code="remNettExpense_comment" var="remNettExpense_comment"  htmlEscape="false"/>
+        	<spring:message code="allNettExpense_comment" var="allNettExpense_comment"  htmlEscape="false"/>
+        	<spring:message code="totalBalance_comment" var="totalBalance_comment"  htmlEscape="false"/>
+        	
+        	
+        	
+        	
+        	<util:panel id="payment_balance_of_course" title="${label_course_payment_balance}" openPane="false">
+        	    <p><b>${label_income}</b></p>
+		        <field:display field="currGrossIncomeByCI" id="s_org_vist_vistadmin_domain_course_currincome" object="${course}" z="0" fielddesc="${currIncome_comment}"/>
+		        <field:display field="remGrossIncome" id="s_org_vist_vistadmin_domain_course_remincome" object="${course}" z="0" fielddesc="${remIncome_comment}"/>		        
+		        <field:display field="allGrossIncome" id="s_org_vist_vistadmin_domain_course_allgrossincome" object="${course}" z="0" fielddesc="${allIncome_comment}"/>
+		        <field:display field="allNetIncome" id="s_org_vist_vistadmin_domain_course_allnetincome" object="${course}" z="0"/>
+		        
+		        <p><b>${label_expense}</b></p>
+		        <field:display field="currGrossExpenseByCC" id="s_org_vist_vistadmin_domain_course_currexpense" object="${course}" z="0" fielddesc="${currExpense_comment}"/>
+		        <field:display field="remCurrGrossExpenseByCC" id="s_org_vist_vistadmin_domain_course_remexpense" object="${course}" z="0" fielddesc="${remCurrGorssExpense_comment}"/>
+		        
+		        <c:choose>
+		        	<c:when test="${course.payPerClasses}">
+		        		<field:display field="allGrossExpenseByCC" id="label_org_vist_vistadmin_domain_course_allexpense" object="${course}" z="0" fielddesc="${remAllExpense_comment}"/>
+		        		<field:display field="AllNetExpense" id="label_org_vist_vistadmin_domain_course_remallexpense" object="${course}" z="0" fielddesc=""/>
+		        				        				        				        	
+		        	</c:when>
+		        	<c:otherwise>
+		        		<field:display field="remNetExpense" id="s_org_vist_vistadmin_domain_course_remnetexpense" object="${course}" z="0" fielddesc="${remNettExpense_comment}"/>
+		        		<field:display field="allNetExpense" id="s_org_vist_vistadmin_domain_course_remallexpense" object="${course}" z="0" fielddesc="${allNettExpense_comment}"/>                	
+                	</c:otherwise>
+		      	</c:choose>
+		        
+		        <p>		        
+		        <hr/>
+		        <br/>
+		        <b><field:display field="totalGrossBalance" id="s_org_vist_vistadmin_domain_course_totalGrossbalance" object="${course}" z="0"  fielddesc="${totalBalance_comment}"/><br/>
+		        <field:display field="totalNetBalance" id="s_org_vist_vistadmin_domain_course_totalNettbalance" object="${course}" z="0"/>
+		        </b>
+		        </p>
+		             
+		        <hr/>
+		        <br/>
+		        <p>   		        
+		        <c:choose>
+		        	<c:when test="${course.payPerClasses}">
+			        	<spring:message code="sumOfCompletedClasses_comment" var="sumOfCompletedClasses_comment"  htmlEscape="false"/>
+		        		<spring:message code="estimatedNumberOfCurrentCalsses_comment" var="estimatedNumberOfCurrentCalsses_comment"  htmlEscape="false"/>
+		        		<spring:message code="estimatedNumberOfAllCalsses_comment" var="estimatedNumberOfAllCalsses_comment"  htmlEscape="false"/>
+		        		<spring:message code="estimatedTotalGrossAmount_comment" var="estimatedTotalGrossAmount_comment"  htmlEscape="false"/>
+		        	
+		        		<field:display field="sumOfCompletedClasses" id="s_org_vist_vistadmin_domain_course_sumofcompletedclasses" object="${course}" z="0" fielddesc="${sumOfCompletedClasses_comment}"/>
+		        		<field:display field="estimatedNumberOfCurrentCalsses" id="s_org_vist_vistadmin_domain_course_estimatednumberofCurrentcalsses" object="${course}" z="0" fielddesc="${estimatedNumberOfCurrentCalsses_comment}"/>
+		        		<field:display field="estimatedTotalGrossAmount" id="s_org_vist_vistadmin_domain_course_estimatedtotalgrossamount" object="${course}" z="0" fielddesc="${estimatedTotalGrossAmount_comment}"/>
+		        		<field:display field="estimatedTotalNetAmount" id="s_org_vist_vistadmin_domain_course_estimatedtotalnetamount" object="${course}" z="0"/>
+		        		<field:display field="estimatedNumberOfAllCalsses" id="s_org_vist_vistadmin_domain_course_estimatednumberofallcalsses" object="${course}" z="0" fielddesc="${estimatedNumberOfAllCalsses_comment}"/>
+		        				        				        		
+               		</c:when>
+               	</c:choose>
+               	</p>	        
+        	</util:panel>
+        </p>
+    </c:if>
+
+
+
+
+</jsp:root>

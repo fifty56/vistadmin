@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:spform="http://www.springframework.org/tags/form" 
+xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" 
+xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+    <form:update id="fu_org_vist_vistadmin_domain_CourseTeacher" modelAttribute="courseTeacher" path="/courseteachers" versionField="Version" z="Sl26x7qtFe9TDfzbyW9PkCy4Ivg=">
+        
+        <field:display field="course" id="s_org_vist_vistadmin_domain_CourseTeacher_course" object="${courseTeacher}" z="dN8i9NFITiDRB2lutUyeOt7YD3w=" showAsLink="true"/>
+		<input type="hidden" name="course" value="${courseTeacher.course.id}"/>
+		<spform:errors cssClass="errors" id="_course_error_id" path="course" />
+		
+		<field:display field="teacher" id="s_org_vist_vistadmin_domain_CourseTeacher_teacher" object="${courseTeacher}" z="uTAT+1UY1KSbyF6Jo7NX9gOkYU8=" showAsLink="true"/>
+		<input type="hidden" name="teacher" value="${courseTeacher.teacher.id}"/>                
+        <spform:errors cssClass="errors" id="_course_error_id" path="teacher" />
+        
+        <field:input field="numerOfClasses" id="c_org_vist_vistadmin_domain_courseteacher_numerofclasses" required="true" z="LJeVTIRye7LrIa8HWG4b8WNk000="/>
+        <field:datetime dateTimePattern="${vistadminDateFormat}" field="startDate" id="c_org_vist_vistadmin_domain_CourseTeacher_startDate" z="MfiaF8Ce6xzqqqwz6dT+ZVE/dLI="/>
+        <field:datetime dateTimePattern="${vistadminDateFormat}" field="endDate" id="c_org_vist_vistadmin_domain_CourseTeacher_endDate" z="31wZFPbwlXVpwmMZp7my1oXtNls="/>
+    </form:update>
+</div>

@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"  xmlns:vist="urn:jsptagdir:/WEB-INF/tags/vist" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+    <div style="view_with_comments">
+    <page:show id="ps_org_vist_vistadmin_domain_Course" object="${course}" path="/courses" z="EifIwchdDpVv6W0oEQGOxLYn2Ns=">
+	<div id="view_panel_statused" class="${course.status}">
+    <spring:message code="label_classsheet_download" var="label_classsheet" htmlEscape="false"/>
+    <spring:url value="/" var="url_base"/>	                       
+	<div style="float:right">
+    	<c:if test="${course.status  != 'ARCHIVED' and course.status  != 'DRAFT'}">
+        	<div style="float:right;border:1px solid #bbb;padding:4px;display:block;">
+        		<spring:url value="/report/classsheet/pdf/${course.id}" var="url_classsheet_pdf">
+        			<spring:param name="lang" value="hu"/>
+        		</spring:url>	
+				<spring:url value="/report/classsheet/odt/${course.id}" var="url_classsheet_odt">
+					<spring:param name="lang" value="hu"/>
+				</spring:url>
+          		<b>${label_classsheet}:</b><br/>
+          		<a href="${url_classsheet_pdf}" target="_blank"><img style="align:right;margin:10px" alt="pdf" title="pdf" src="${url_base}/images/pdf.png" width="40" height="40"/></a>
+          		<a href="${url_classsheet_odt}" target="_blank"><img style="align:right;margin:10px" alt="odt" title="odt" src="${url_base}/images/doc.png"  width="40" height="40"/></a>
+        	</div>
+    	</c:if>
+    	<div style="float:right;border:1px solid #bbb;padding:10px;display:block;clear:both;margin-top:20px">
+    		<spring:url value="/courses/copy/${course.id}" var="url_copy">
+    			<spring:param name="form"/>
+    		</spring:url>	
+    		<a href="${url_copy}"><spring:message code="label_course_action_copy" htmlEscape="false"/></a>
+    	</div>
+    </div>
+    <spring:message code="label_org_vist_vistadmin_domain_course_status" var="label_status" htmlEscape="false"/>
+     <div style="float:right;margin-right:180px;font-size:16px;">
+        <br/><b>${label_status}: <spring:eval expression="course.status" /></b>
+    </div>
+    
+        <field:display field="courseId" id="s_org_vist_vistadmin_domain_Course_id" object="${course}" z="0"/>
+        <field:display field="company" id="c_org_vist_vistadmin_domain_course_company" object="${course}" z="+TscaEiPw0ZBVub5glG+okfz9QE=" isboolean="true"/>
+        <field:display date="true" dateTimePattern="${vistadminDateFormat}" field="creationDate" id="s_org_vist_vistadmin_domain_Course_creationDate" object="${course}" z="BY4xBoi4+zD96dJsn4Okit/8jYY="/>
+        <field:display field="lang" id="s_org_vist_vistadmin_domain_Course_lang" object="${course}" z="QF2QgTo3GO9gTStPnQBxuOR2HTo="/>        
+        <field:display field="courseFormat" id="s_org_vist_vistadmin_domain_Course_courseFormat" object="${course}" z="CANMtZ6mcX3QQc35tnmPYUTHrQ8="/>
+        
+        <c:if test="${course.courseFormat  == 'INSTANT'  }">
+        	<field:display  field="instantCourseFormat" object="${course}"  id="c_org_vist_vistadmin_domain_course_instantcourseformat" />
+        	<field:display field="instantCourseType" object="${course}" id="c_org_vist_vistadmin_domain_course_instantcoursetype"/>
+        </c:if>
+        
+        <field:display field="courseType" id="s_org_vist_vistadmin_domain_Course_courseType" object="${course}" z="CANMtZ6mcX3QQc35tnmPYUTHrQ8="/>
+        <field:display field="courseLevel" id="s_org_vist_vistadmin_domain_Course_courseLevel" object="${course}" z="5cMBgJnNldciDvR9gA4sO3kG7Zk="/>
+        <field:display field="classSpecializationType" id="s_org_vist_vistadmin_domain_course_classspecializationtype"  object="${course}" z="p4rdToaRvT9mm2UeqbJJfb4U3vk="/>
+        <field:display field="room" id="c_org_vist_vistadmin_domain_Course_room" object="${course}"  z="0"/>
+        <field:display date="true" dateTimePattern="${vistadminDateFormat}" field="startDate" id="s_org_vist_vistadmin_domain_Course_startDate" object="${course}" z="BY4xBoi4+zD96dJsn4Okit/8jYY="/>
+        <field:display date="true" dateTimePattern="${vistadminDateFormat}" field="endDate" id="s_org_vist_vistadmin_domain_Course_endDate" object="${course}" z="lCDV7/ksF44NUXJtaXRr4Dxhj8w="/>
+        <!--field:display field="status" id="s_org_vist_vistadmin_domain_Course_status" object="${course}" z="ovcA04b1lGZwe0KCOdJiqH5h3fI="/-->
+        <field:display field="sumOfClasses" id="s_org_vist_vistadmin_domain_Course_sumOfClasses" object="${course}" z="LqWxZpEFWw6tVvCIo9jedsy3omI="/>                
+
+		<spring:message code="label_org_vist_vistadmin_domain_course_timeofclasses" var="timeOfClasseslabel" htmlEscape="false" />
+		<spring:message code="label_course_timeofclasses_flexible" var="flexi" htmlEscape="false" />
+		<div id="_s_org_vist_vistadmin_domain_course_timeofclasses_id">
+      		<label for="_timeOfClasses_id">	
+        		<c:out value="${timeOfClasseslabel}" />:
+      		</label>
+      		<div class="box" id="_s_org_vist_vistadmin_domain_course_timeofclasses_id">
+      		<c:choose>
+	      		<c:when test="${course.timeOfClasses == 'FLEX'}">
+	      			<c:out value="${flexi}" />	
+      			</c:when>
+      			<c:otherwise>
+      				<c:out value="${course.timeOfClasses}" />
+      			</c:otherwise>
+      			</c:choose>      			      			
+        	</div>
+        </div>
+        <br/>   
+
+		<spring:message code="moneyPerStudent_comment" var="moneyPerStudent_comment"  htmlEscape="false"/>
+
+        <field:display field="book" id="s_org_vist_vistadmin_domain_Course_book" object="${course}" z="+TscaEiPw0ZBVub5glG+okfz9QE="/>
+        <field:display field="vat" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_vat" object="${course}" z="+TscaEiPw0ZBVub5glG+okfz9QE=" isboolean="true"/>
+        <field:display field="comment" id="s_org_vist_vistadmin_domain_Course_comment" object="${course}" z="6FGWEWZd/8bcV3JdEO7lL0GynDI="/>
+        <field:display field="payPerClasses" id="s_org_vist_vistadmin_domain_Course_payPerClasses" object="${course}" z="nsMPDPECWM7SP975iEZmx+9Y6zw=" isboolean="true"/>
+        <field:display field="moneyPerStudent" id="s_org_vist_vistadmin_domain_Course_moneyPerStudent" object="${course}" z="P0SuQ6Yw3g6OFdF6pRIetQlS2ak="  fielddesc="${moneyPerStudent_comment}"/>
+        <field:display field="teacherClassPrice" id="s_org_vist_vistadmin_domain_Course_teacherClassPrice" object="${course}" z="n0TWM6PyfDErHmnpimgLuKVJyyo="/>
+        
+        <vist:relationlist id="${course.id}" courseStudentList="${courseStudentList}" showStudentsOfCourse="true"/>
+        <vist:relationlist id="${course.id}" courseTeacherList="${courseTeacherList}" showTeachersOfCourse="true"/>		                
+        <vist:courseBudget course="${course}" completedClassList="${completedClassList}" showCoursesCompletedClass="true"/>
+        <vist:courseBudget course="${course}" courseIncomeList="${courseIncomeList}" showCourseIncome="true"/>
+        <vist:courseBudget course="${course}" showCourseBudget="true"/>
+        
+    </div>    
+    </page:show>
+    </div>
+</div>

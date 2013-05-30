@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+    <form:create id="fc_org_vist_vistadmin_domain_CourseIncome" modelAttribute="courseIncome" path="/courseincomes" render="${empty dependencies}" z="xO5JzmWSaos1OwFcnpBUtz+EJNQ=">
+        <field:select field="student" id="c_org_vist_vistadmin_domain_CourseIncome_student" itemValue="id" items="${students}" path="/students" required="true" z="vD3FKmABDNJ87L8h8bgTTQGBIvM="/>
+        <field:select field="course" id="c_org_vist_vistadmin_domain_CourseIncome_course" itemValue="id" items="${courses}" path="/courses" required="true" z="ETsCLBm+3HxPrYdS3WrbepXBQYs="/>
+        <field:input field="amount" id="c_org_vist_vistadmin_domain_CourseIncome_amount" required="true" z="KQxWaCPecHccqVanPEkWWDRoFjI="/>
+        <field:input field="billOrderNumber" id="c_org_vist_vistadmin_domain_courseincome_billordernumber" required="false" z="KQxWaCPecHccqVanPEkWWDRoFjI="/>        		
+
+        <field:datetime dateTimePattern="${vistadminDateFormat}" required="true" field="deadlineDate" id="c_org_vist_vistadmin_domain_CourseIncome_deadlineDate" z="y2NQeB5nuApvPdBv18EsLOU1VhY="/>
+        <field:checkbox field="payed" id="c_org_vist_vistadmin_domain_courseincome_payed" z="UhGQwAiJCwH0MFHHrPxLuB27ToA="/>
+        <field:datetime dateTimePattern="${vistadminDateFormat}" field="paymentDate" id="c_org_vist_vistadmin_domain_CourseIncome_paymentDate" z="y2NQeB5nuApvPdBv18EsLOU1VhY="/>
+        <c:if test="${fn:length(courses) == 1}">
+         	<c:if test="${courses[0].payPerClasses}">         		
+         		<field:select field="year" id="c_org_vist_vistadmin_domain_courseincome_Year" items="${yearlist}" path="/students" required="true" z="vD3FKmABDNJ87L8h8bgTTQGBIvM="/>
+         		<field:select field="month"  itemLabel="label" itemValue="id" id="c_org_vist_vistadmin_domain_courseincome_month" items="${monthlist}" path="/students" required="true" z="vD3FKmABDNJ87L8h8bgTTQGBIvM="/>
+         		<field:select field="week"   itemLabel="label" itemValue="id" id="c_org_vist_vistadmin_domain_courseincome_week" items="${weeklist}" path="/students" required="true" z="vD3FKmABDNJ87L8h8bgTTQGBIvM="/>         	                  		
+        	</c:if>
+        </c:if>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_org_vist_vistadmin_domain_CourseIncome" render="${not empty dependencies}" z="/Bh0J7d0T85R+ztEVfRL/RtzFRY="/>
+</div>

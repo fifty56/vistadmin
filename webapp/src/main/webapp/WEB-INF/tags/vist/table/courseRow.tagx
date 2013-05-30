@@ -1,0 +1,75 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 	 
+		xmlns:spring="http://www.springframework.org/tags"
+		xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"		
+		xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+		 
+  <jsp:output omit-xml-declaration="yes" />
+  
+  <jsp:directive.attribute name="course" type="org.vist.vistadmin.domain.Course" required="true" rtexprvalue="true" description="The identifier of the root object" />
+  <jsp:directive.attribute name="startDate" type="java.util.Date" required="false" rtexprvalue="true" description="The collection of the courses and students" />
+  <jsp:directive.attribute name="endDate" type="java.util.Date" required="false" rtexprvalue="true" description="The collection of the courses and students" />
+  <jsp:directive.attribute name="showDiscounts" type="java.lang.Boolean" required="false" rtexprvalue="true" description="" />
+  <jsp:directive.attribute name="student" type="org.vist.vistadmin.domain.Student" required="false" rtexprvalue="true" description="" />
+  <jsp:directive.attribute name="showNumerOfClasses" type="java.lang.Boolean" required="false" rtexprvalue="true" description="" />
+  <jsp:directive.attribute name="numerOfClasses" type="java.lang.Integer" required="false" rtexprvalue="true" description="" />
+  <jsp:directive.attribute name="companyStudentNames" type="java.lang.String" required="false" rtexprvalue="true" description="" />
+
+  <spring:url value="/" var="url_home"/>
+  <spring:message code="label_discount_to_student_course_relation_add" var="label_add_new_discount_to_student_course"  htmlEscape="false"/>
+
+  <fmt:formatDate pattern="yyyy-MM-dd" value="${startDate}" var="startDate"/>
+  <fmt:formatDate pattern="yyyy-MM-dd" value="${endDate}" var="endDate"/>
+  <td>
+			<a href="${url_home}courses/${course.id}">
+             <c:out value="${course.courseId}"/>
+  		   </a>
+  		   <c:if test="${companyStudentNames != null and not empty companyStudentNames}">
+	           	<p><spring:message code="label_org_vist_vistadmin_domain_student_companystudentnames" htmlEscape="false"/>:
+	           		<ul><c:forEach var="stName" items="${fn:split(companyStudentNames, ';')}">
+	           			<li><c:out value="${stName}" /></li> 
+	       			</c:forEach></ul>                        		
+	           	</p>
+           </c:if>                      			                                
+  </td>
+  <td>
+  	<c:out value="${course.labelString}"/>
+  </td>
+  <td>
+      <c:out value=" ${startDate} - ${endDate}"/>
+  </td>
+  <c:if test="${showNumerOfClasses}">
+                    <td>
+                       ${numerOfClasses}
+                     </td>                        
+  </c:if>
+  
+  <c:if test="${showDiscounts}">
+	  <td>
+	    <c:if test="${course.discounts != null}">
+	    		<spring:url value="/coursestudentdiscounts" var="url_modif_discoount"/>
+				<ul class="coursestudentdiscount_table">                     	                     		                     	
+	               	<c:forEach items="${course.discounts}" var="courseStudentDiscount">
+	     				<li><a href="${url_modif_discoount}/${courseStudentDiscount.id}">
+	     				    <c:choose>
+	     				        <c:when test="${courseStudentDiscount.discount.type == 'FIX_PRICE'}">
+	     				            <spring:message code="label_discount_fix" arguments="${courseStudentDiscount.discount.amount}" htmlEscape="false"/>
+	     				        </c:when>
+	     				        <c:otherwise>
+	     				            <spring:message code="label_discount.percentage" arguments="${courseStudentDiscount.discount.amount}" htmlEscape="false"/>
+	     				        </c:otherwise>
+	     				    </c:choose>
+	     				    </a></li>
+	     			</c:forEach>
+	     		</ul>
+	 	</c:if>
+	
+	 	<spring:url value="/coursestudentdiscounts?form" var="url_add_new_discount">
+			<spring:param name="courseid" value="${course.id}"/>
+			<spring:param name="studentid" value="${student.id}"/>
+		</spring:url>
+		<a href="${url_add_new_discount}">${label_add_new_discount_to_student_course}</a> 
+  </td>                    
+  </c:if>                
+</jsp:root>

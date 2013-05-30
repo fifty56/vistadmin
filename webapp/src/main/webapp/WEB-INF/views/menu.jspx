@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:menu="urn:jsptagdir:/WEB-INF/tags/menu" id="menu" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <menu:menu id="_menu" z="nZaf43BjUg1iM0v70HJVEsXDopc=">
+    	<!-- 
+        <menu:category id="c_completedclass" z="Mp7d9+0bpKUX35gVD5UtMhmoqLs=">
+            <menu:item id="i_completedclass_new" messageCode="global_menu_new" url="/completedclasses?form" z="hFplpigMK/7X6ANtY9dzK0eKpdg="/>
+            <menu:item id="i_completedclass_list" messageCode="global_menu_list" url="/completedclasses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="CVmklPyPB8bUOoabzV1QEPto/ZQ="/>
+        </menu:category>
+        <menu:category id="c_courseincome" z="szP8NBkrvOHMHcNu6Segu6Jktg8=">
+            <menu:item id="i_courseincome_new" messageCode="global_menu_new" url="/courseincomes?form" z="uw1qj4iJBzf06SHAblMlb+w/rE4="/>
+            <menu:item id="i_courseincome_list" messageCode="global_menu_list" url="/courseincomes?page=1&amp;size=${empty param.size ? 10 : param.size}" z="AXUz09egQTb/uTcOyMk4/UAlUi0="/>
+        </menu:category>
+        <menu:category id="c_courseteacher" z="uikh6rBM/2A8ZzL4Ou53Tc3HL6I=">
+            <menu:item id="i_courseteacher_new" messageCode="global_menu_new" url="/courseteachers?form" z="7dAulxXfpWvjwrcoR2ev/9ezhkI="/>
+            <menu:item id="i_courseteacher_list" messageCode="global_menu_list" url="/courseteachers?page=1&amp;size=${empty param.size ? 10 : param.size}" z="h/TntPKSDjz2JMUihpb9wG9W2Vw="/>
+        </menu:category>
+        <menu:category id="c_coursestudent" z="LAv0hGVquP2FzR5+L9qlbC7Grsw=">
+            <menu:item id="i_coursestudent_new" messageCode="global_menu_new" url="/coursestudents?form" z="hQoak23VrlUxthmqbx8cuc4GjIc="/>
+            <menu:item id="i_coursestudent_list" messageCode="global_menu_list" url="/coursestudents?page=1&amp;size=${empty param.size ? 10 : param.size}" z="PZh3JLDLQIOVf25tyHk0WIqNmI4="/>
+        </menu:category>
+        <menu:category id="c_billingaddress" z="0pFCjrtA3UCu1WgjmlFVajAROvw=">
+            <menu:item id="i_billingaddress_new" messageCode="global_menu_new" url="/billingaddresses?form" z="HMi9TkAbuhXHEPA260o3Tpm/lc0="/>
+            <menu:item id="i_billingaddress_list" messageCode="global_menu_list" url="/billingaddresses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="YOTvQGraS5sCJEaiIL4he5KaGh0="/>
+        </menu:category>
+        -->
+        <menu:category id="c_student" z="VA/5j81jpINYUQQoxpb8LUYLpWk=">
+            <menu:item id="i_student_new" messageCode="global_menu_new" url="/students?form" z="xCEWOyB2txSvWmV9Fxwd+H7BxCM="/>
+            <menu:item id="i_student_list" messageCode="global_menu_list" url="/students?page=1&amp;size=${empty param.size ? 10 : param.size}" z="PSLnBxZ6Z7hXmOglFNorqDjA2H0="/>
+        </menu:category>
+        <menu:category id="c_teacher" z="LDHalaWcu+4uB1/Yp2U+qmXGmfE=">
+            <menu:item id="i_teacher_new" messageCode="global_menu_new" url="/teachers?form" z="mlYI9sXVCvEJatzE6XYulrmxPjA="/>
+            <menu:item id="i_teacher_list" messageCode="global_menu_list" url="/teachers?page=1&amp;size=${empty param.size ? 10 : param.size}" z="qck+mw1AUxmT+v1gCnHL2kVUn3k="/>
+        </menu:category>                
+        <menu:category id="c_course" z="xwPFa1gir7x2AC89oGWk0WgKTE0=">
+            <menu:item id="i_course_new" messageCode="global_menu_new" url="/courses?form" z="vR3sAxuatm9tFJBQbX6a5epcJ2U="/>
+            <menu:item id="i_course_list" messageCode="global_menu_list" url="/courses?page=1&amp;size=${empty param.size ? 10 : param.size}" z="ym6LbWOetujuA2Z1C5Io6i7oW9I="/>
+        </menu:category>        
+		
+		
+		        <menu:category id="c_discount" z="KUeygsKk988COWVV1TdW6r2nV/k=">
+            <menu:item id="i_discount_new" messageCode="global_menu_new" url="/discounts?form" z="bL4joGYMQlPCuz8N5tZ6x/sv900="/>
+            <menu:item id="i_discount_list" messageCode="global_menu_list" url="/discounts?page=1&amp;size=${empty param.size ? 10 : param.size}" z="zDvUP3oEj9wCGbr9YI8MIrNNJa8="/>
+        </menu:category>
+        
+        <menu:category id="c_summary" z="Kk988COWVV1TdW6r2nV/k=">
+            <menu:item id="i_summary_show" messageCode="global_menu_summary_show" url="/summary" z="bL4joGYMQlPCuz8N5tZ6x/sv0="/>
+            <menu:item id="i_interval_show" messageCode="global_menu_interval_show" url="/summary/interval/1" z="bL4joGYMQlPCuz8N5tZ6x/sv1="/>
+            <menu:item id="i_month_show" messageCode="global_menu_month_show" url="/summary/month/" z="bL4joGYMQlPCuz8N5tZ6x/sv0="/>
+        </menu:category>
+        
+        <!-- menu:category id="c_coursestudentdiscount" z="a4ytItXzdNV9VLAqJ0TRseRh9es=">
+            <menu:item id="i_coursestudentdiscount_new" messageCode="global_menu_new" url="/coursestudentdiscounts?form" z="rNOdJf3E3knF03lMTuoVZNUmEyw="/>
+            <menu:item id="i_coursestudentdiscount_list" messageCode="global_menu_list" url="/coursestudentdiscounts?page=1&amp;size=${empty param.size ? 10 : param.size}" z="Rfq5wzWRFHIWXnWrM8j6Eg8hBl0="/>
+        </menu:category-->
+		
+    </menu:menu>
+</div>

@@ -1,0 +1,42 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 	 
+		xmlns:spring="http://www.springframework.org/tags" 
+		xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"		
+		xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+		xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+		
+  <jsp:output omit-xml-declaration="yes" />
+  
+  <jsp:directive.attribute name="courseIncome" type="org.vist.vistadmin.domain.CourseIncome" required="true" rtexprvalue="true"  />
+    
+  <spring:message code="label_org_vist_vistadmin_domain_discount" var="label_discount" htmlEscape="false"/>
+                         
+    			<spring:message code="select_option_completedclass_month_${courseIncome.month}" var="compmonth" htmlEscape="false"/>
+    			<c:choose>
+	          		<c:when test="${courseIncome.week > -1}">
+	          			<spring:message code="select_option_completedclass_week" arguments="${courseIncome.week}" var="compweek" htmlEscape="false"/>		
+	          		</c:when>
+	          		<c:otherwise>
+	          			<spring:message code="select_option_completedclass_monthly" var="compweek" htmlEscape="false"/>
+	          		</c:otherwise>
+	          	</c:choose>
+             	<c:choose>             		
+             		<c:when test="${courseIncome.courseStudentDiscountId == null}">             		   			          	                     
+              			${courseIncome.year} ${compmonth} ${compweek}
+             		</c:when>
+             		<c:otherwise>                                                 
+             			<spring:url value="/coursestudentdiscounts/${courseIncome.courseStudentDiscountId}" var="url_discount"/>
+      		    		<a href="${url_discount}">${label_discount}</a>
+      		    		<c:choose>
+             				<c:when test="${courseIncome.fixDiscount}">
+             				 (FIX)
+             				</c:when>
+             				<c:otherwise>
+             				 (%) ${courseIncome.year} ${compmonth} ${compweek}  
+      	    				</c:otherwise>
+      	    			</c:choose>
+      	    		</c:otherwise>
+      			</c:choose>
+
+</jsp:root>

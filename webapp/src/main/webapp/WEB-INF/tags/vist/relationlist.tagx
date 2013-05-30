@@ -1,0 +1,317 @@
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" 
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 	 
+		xmlns:spring="http://www.springframework.org/tags"
+		xmlns:visttable="urn:jsptagdir:/WEB-INF/tags/vist/table"
+		xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" 
+		xmlns:c="http://java.sun.com/jsp/jstl/core" version="2.0">
+		 
+  <jsp:output omit-xml-declaration="yes" />
+  
+  <jsp:directive.attribute name="id" type="java.lang.String" required="true" rtexprvalue="true" description="The identifier of the root object" />
+  <jsp:directive.attribute name="courseStudentList" type="java.util.Collection" required="false" rtexprvalue="true" description="The collection of the courses and students" />
+  <jsp:directive.attribute name="showCoursesOfStudent" type="java.lang.Boolean" required="false" rtexprvalue="true" description="" />
+  <jsp:directive.attribute name="showStudentsOfCourse" type="java.lang.Boolean" required="false" rtexprvalue="true" description="" />
+  <jsp:directive.attribute name="courseTeacherList" type="java.util.Collection" required="false" rtexprvalue="true" description="The collection of the courses and teachers" />
+  <jsp:directive.attribute name="showTeachersOfCourse" type="java.lang.Boolean" required="false" rtexprvalue="true" description="" />
+  <jsp:directive.attribute name="showCoursesOfTeacher" type="java.lang.Boolean" required="false" rtexprvalue="true" description="" />
+
+  <spring:url value="/" var="url_home"/>
+      
+  <spring:message code="label_course_list" var="label_courses"  htmlEscape="false"/>    
+  <spring:message code="label_student_list" var="label_students"  htmlEscape="false"/>    
+  <spring:message code="label_teacher_list" var="label_teachers"  htmlEscape="false"/>    
+  <spring:message code="label_relation_update" var="label_rel_modif"  htmlEscape="false"/>                  
+  <spring:message code="label_course_to_student_relation_add" var="label_add_new_course_to_student"  htmlEscape="false"/>
+  <spring:message code="label_student_to_course_relation_add" var="label_add_new_student_to_course"  htmlEscape="false"/>
+  <spring:message code="label_course_to_teacher_relation_add" var="label_add_new_course_to_teacher"  htmlEscape="false"/>
+  <spring:message code="label_teacher_to_course_relation_add" var="label_add_new_teacher_to_course"  htmlEscape="false"/>                                              
+  
+  <spring:message code="label_discount_to_student_course_relation_add" var="label_add_new_discount_to_student_course"  htmlEscape="false"/>              
+                
+                
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_courseid" var="th_course_courseid"  htmlEscape="false"/>              
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_desc" var="th_desc"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_date" var="th_date"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_name" var="th_name"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_status" var="th_status"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_discount" var="th_discount"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_numberofclasses" var="th_number_of_classes"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_price" var="th_amount"  htmlEscape="false"/>
+  <spring:message code="label_org_vist_vistadmin_domain_table_th_contract" var="th_contract"  htmlEscape="false"/>
+ <spring:message code="label_org_vist_vistadmin_domain_course_teacherclassprice" var="th_teacherclassprice"  htmlEscape="false"/> 
+ 
+  <c:if test="${showCoursesOfStudent}">
+  	<c:if test="${not empty courseStudentList}">	
+
+  		<!-- courses of a student -->  		
+
+  		<p>
+  			<util:panel id="students_of_course" title="${label_courses}" openPane="false">  	
+  			<table>  
+  			<th>${th_course_courseid}</th>
+  			<th>${th_desc}</th>
+  			<th>${th_date}</th>
+  			<th>${th_discount}</th>
+  			<th>${th_amount}</th>
+  			<th>${th_status}</th>
+  			<th>${th_contract}</th>  			
+  			<th></th>		
+  			<c:forEach items="${courseStudentList}" var="courseStudent">
+                 <tr>                 
+                     <visttable:courseRow course="${courseStudent.course}" startDate="${courseStudent.startDate}" endDate="${courseStudent.endDate}" 
+                     	showDiscounts="true" student="${courseStudent.student}" companyStudentNames="${courseStudent.companyStudentNames}"/>                     	
+                     <td>
+                        <c:choose>
+                          <c:when test="${courseStudent.course.payPerClasses}">
+                          -
+                          </c:when>
+                          <c:otherwise>
+                          	${courseStudent.course.allGrossIncome}
+                          </c:otherwise>
+                     	</c:choose>
+                     </td>
+                     <td>${courseStudent.course.status.label}</td>                     
+                     <td>                     
+                     	<spring:url value="/report/studentcontract/pdf/${courseStudent.id}" var="url_studentcontract_pdf">
+        					<spring:param name="lang" value="hu"/>
+		        		</spring:url>	
+						<spring:url value="/report/studentcontract/odt/${courseStudent.id}" var="url_studentcontract_odt">
+							<spring:param name="lang" value="hu"/>
+						</spring:url>		          		
+		          		<a href="${url_studentcontract_pdf}" target="_blank"><img style="align:right;margin:2px" alt="pdf" title="pdf" src="${url_home}/images/pdf.png" width="30" height="30"/></a>
+		          		<a href="${url_studentcontract_odt}" target="_blank"><img style="align:right;margin:2px" alt="odt" title="odt" src="${url_home}/images/doc.png"  width="30" height="30"/></a>                     
+                     </td>                     
+                     <td>                         
+                         <spring:url value="/resources/images/update.png" var="update_image_url"/>
+                         <spring:url value="/coursestudents" var="update_rel_url"/>
+                         <a alt="${label_rel_modif}" href="${update_rel_url}/${courseStudent.id}" title="${label_rel_modif}">
+                             <img alt="${label_rel_modif}" class="image" src="${update_image_url}" title="${label_rel_modif}"/>
+                         </a>
+                     </td>
+                 </tr>
+            </c:forEach>
+        </table>  	
+        </util:panel>            
+      </p>      
+      
+    </c:if>  
+      <p>            
+            <spring:url value="/coursestudents?form" var="url_add_new_course">
+                <spring:param name="studentid" value="${id}"/>
+            </spring:url>
+            <a href="${url_add_new_course}">${label_add_new_course_to_student}</a>
+      </p>
+   </c:if>
+    
+  	<c:if test="${showStudentsOfCourse}">
+  		<c:if test="${not empty courseStudentList}">
+  		
+  		<!-- students of a course -->
+  	
+  		<P>  		
+  			<util:panel id="students_of_course" title="${label_students}" openPane="false">  	
+  			<table>
+  			  		<th>${th_name}</th>		  			
+		  			<th>${th_date}</th>	  			
+		  			<th>${th_amount}</th>		  					  					  		
+		  			<th>${th_discount}</th>		
+		  			<th>${th_contract}</th>
+		  			<th></th>		
+  			<c:forEach items="${courseStudentList}" var="courseStudent">
+                 <tr>
+                     <fmt:formatDate pattern="yyyy-MM-dd" value="${courseStudent.startDate}" var="startDate"/>
+                     <fmt:formatDate pattern="yyyy-MM-dd" value="${courseStudent.endDate}" var="endDate"/>
+                     <td>
+   						<a href="${url_home}students/${courseStudent.student.id}">
+                                <c:out value="${courseStudent.student.labelString}"/>
+                        </a>                      		
+                        <c:if test="${courseStudent.student.company and courseStudent.course.company}">
+                        	<p><spring:message code="label_org_vist_vistadmin_domain_student_companystudentnames" htmlEscape="false"/>:
+                        		<ul><c:forEach var="stName" items="${fn:split(courseStudent.companyStudentNames, ';')}">
+                        			<li><c:out value="${stName}" /></li> 
+                    			</c:forEach></ul>                        		
+                        	</p>
+                        </c:if>	                                
+                     </td>
+                     <td>
+                         <c:out value=" ${startDate} - ${endDate}"/>
+                     </td>                     
+                     <td>
+                        <c:choose>
+                          <c:when test="${courseStudent.course.payPerClasses}">
+                          -
+                          </c:when>
+                          <c:otherwise>
+                          	${courseStudent.student.allExpenses}
+                          </c:otherwise>
+                     	</c:choose>
+                     </td>                     
+                     <td>
+                     <c:if test="${courseStudent.student.discounts != null}">
+                     		<spring:url value="/coursestudentdiscounts" var="url_modif_discoount"/>
+							<ul class="coursestudentdiscount_table">                     	                     		                     	
+	                     	<c:forEach items="${courseStudent.student.discounts}" var="courseStudentDiscount">
+	                     		<li><a href="${url_modif_discoount}/${courseStudentDiscount.id}">	                     			
+	                     			<c:choose>
+			     				        <c:when test="${courseStudentDiscount.discount.type == 'FIX_PRICE'}">
+			     				            <spring:message code="label_discount_fix" arguments="${courseStudentDiscount.discount.amount}" htmlEscape="false"/>
+			     				        </c:when>
+			     				        <c:otherwise>
+			     				            <spring:message code="label_discount.percentage" arguments="${courseStudentDiscount.discount.amount}" htmlEscape="false"/>
+			     				        </c:otherwise>
+			     				    </c:choose>	                     			
+									</a></li>
+	                     	</c:forEach>
+	                     	</ul>
+	                 </c:if>
+	                 
+	                 <spring:url value="/coursestudentdiscounts?form" var="url_add_new_discount">
+                		<spring:param name="courseid" value="${id}"/>
+                		<spring:param name="studentid" value="${courseStudent.student.id}"/>
+            		</spring:url>
+            		<a href="${url_add_new_discount}">${label_add_new_discount_to_student_course}</a>	                 
+                     </td>   
+                     <td>                     
+                     	<spring:url value="/report/studentcontract/pdf/${courseStudent.id}" var="url_studentcontract_pdf">
+        					<spring:param name="lang" value="hu"/>
+		        		</spring:url>	
+						<spring:url value="/report/studentcontract/odt/${courseStudent.id}" var="url_studentcontract_odt">
+							<spring:param name="lang" value="hu"/>
+						</spring:url>		          		
+		          		<a href="${url_studentcontract_pdf}" target="_blank"><img style="align:right;margin:2px" alt="pdf" title="pdf" src="${url_home}/images/pdf.png" width="30" height="30"/></a>
+		          		<a href="${url_studentcontract_odt}" target="_blank"><img style="align:right;margin:2px" alt="odt" title="odt" src="${url_home}/images/doc.png"  width="30" height="30"/></a>                     
+                     </td>                  
+                     <td>                         
+                         <spring:url value="/resources/images/update.png" var="update_image_url"/>
+                         <spring:url value="/coursestudents" var="update_rel_url"/>
+                         <a alt="${label_rel_modif}" href="${update_rel_url}/${courseStudent.id}" title="${label_rel_modif}">
+                             <img alt="${label_rel_modif}" class="image" src="${update_image_url}" title="${label_rel_modif}"/>
+                         </a>
+                     </td>
+                 </tr>
+            </c:forEach>
+        	</table>  	                        
+      	</util:panel>
+      </P>
+      </c:if>
+      <p>            
+            <spring:url value="/coursestudents?form" var="url_add_new_course">
+                <spring:param name="courseid" value="${id}"/>
+            </spring:url>
+            <a href="${url_add_new_course}">${label_add_new_student_to_course}</a>
+      </p>
+    </c:if>
+            
+  
+
+
+	
+	<c:if test="${showTeachersOfCourse}">
+    	<c:if test="${not empty courseTeacherList}">        
+            
+            <!-- teachers of course -->
+            
+            <p><util:panel id="teachers_of_course" title="${label_teachers}" openPane="false"><table>
+            
+              			<th>${th_name}</th>		  			
+		  				<th>${th_date}</th>
+		  				<th>${th_number_of_classes}</th>
+		  				<th>${th_contract}</th>
+		  				<th></th>
+  				<c:forEach items="${courseTeacherList}" var="courseTeacher">
+                 <tr>
+                     <fmt:formatDate pattern="yyyy-MM-dd" value="${courseTeacher.startDate}" var="startDate"/>
+                     <fmt:formatDate pattern="yyyy-MM-dd" value="${courseTeacher.endDate}" var="endDate"/>
+                     <td>
+   						<a href="${url_home}teachers/${courseTeacher.teacher.id}">
+                                <c:out value="${courseTeacher.teacher.labelString}"/>
+                        </a>                      			                                
+                     </td>
+                     <td>
+                         <c:out value=" ${startDate} - ${endDate}"/>
+                     </td>                           
+                     <td>                     
+                     	<spring:url value="/report/teachercontract/pdf/${courseTeacher.id}" var="url_teachercontract_pdf">
+        					<spring:param name="lang" value="hu"/>
+		        		</spring:url>	
+						<spring:url value="/report/teachercontract/odt/${courseTeacher.id}" var="url_teachercontract_odt">
+							<spring:param name="lang" value="hu"/>
+						</spring:url>		          		
+		          		<a href="${url_teachercontract_pdf}" target="_blank"><img style="align:right;margin:2px" alt="pdf" title="pdf" src="${url_home}/images/pdf.png" width="30" height="30"/></a>
+		          		<a href="${url_teachercontract_odt}" target="_blank"><img style="align:right;margin:2px" alt="odt" title="odt" src="${url_home}/images/doc.png"  width="30" height="30"/></a>                     
+                     </td>                                   
+                     <td>
+                         <spring:url value="/resources/images/update.png" var="update_image_url"/>
+                         <spring:url value="/courseteachers" var="update_rel_url"/>
+                         <a alt="${label_rel_modif}" href="${update_rel_url}/${courseTeacher.id}" title="${label_rel_modif}">
+                             <img alt="${label_rel_modif}" class="image" src="${update_image_url}" title="${label_rel_modif}"/>
+                         </a>
+                     </td>
+                 </tr>
+            	</c:forEach>
+        </table>
+        </util:panel>  	            
+      </p>      
+      </c:if>
+      <p>            
+            <spring:url value="/courseteachers?form" var="url_add_new_teacher">
+                <spring:param name="courseid" value="${id}"/>
+            </spring:url>
+            <a href="${url_add_new_teacher}">${label_add_new_teacher_to_course}</a>
+      </p>
+   </c:if>   
+   
+   <c:if test="${showCoursesOfTeacher}">
+        <c:if test="${not empty courseTeacherList}">    
+            <!-- courses of a teacher -->
+            
+            <p><util:panel id="courses_of_teacher" title="${label_courses}" openPane="false"><table>
+	            <th>${th_course_courseid}</th>
+	  			<th>${th_desc}</th>
+	  			<th>${th_date}</th>
+	  			<!-- th>${th_number_of_classes}</th-->
+	  			<th>${th_teacherclassprice}</th>
+	  			<th>${th_status}</th>
+	  			<th>${th_contract}</th>  			
+	  			<th></th>
+  				<c:forEach items="${courseTeacherList}" var="courseTeacher">
+                 <tr>
+                     <visttable:courseRow course="${courseTeacher.course}" startDate="${courseTeacher.startDate}" endDate="${courseTeacher.endDate}" 
+                     	showNumerOfClasses="false" numerOfClasses="0"/>                                          
+                     <td>${courseTeacher.course.teacherClassPrice}</td>
+                     <td>${courseTeacher.course.status}</td>
+                     <td>                     
+                     	<spring:url value="/report/teachercontract/pdf/${courseTeacher.id}" var="url_teachercontract_pdf">
+        					<spring:param name="lang" value="hu"/>
+		        		</spring:url>	
+						<spring:url value="/report/teachercontract/odt/${courseTeacher.id}" var="url_teachercontract_odt">
+							<spring:param name="lang" value="hu"/>
+						</spring:url>		          		
+		          		<a href="${url_teachercontract_pdf}" target="_blank"><img style="align:right;margin:2px" alt="pdf" title="pdf" src="${url_home}/images/pdf.png" width="30" height="30"/></a>
+		          		<a href="${url_teachercontract_odt}" target="_blank"><img style="align:right;margin:2px" alt="odt" title="odt" src="${url_home}/images/doc.png"  width="30" height="30"/></a>                     
+                     </td>
+                     <td>                         
+                         <spring:url value="/resources/images/update.png" var="update_image_url"/>
+                         <spring:url value="/courseteachers" var="update_rel_url"/>
+                         <a alt="${label_rel_modif}" href="${update_rel_url}/${courseTeacher.id}" title="${label_rel_modif}">
+                             <img alt="${label_rel_modif}" class="image" src="${update_image_url}" title="${label_rel_modif}"/>
+                         </a>
+                     </td>
+                 </tr>
+            	</c:forEach>
+        </table>
+        </util:panel>  	            
+      </p>
+      </c:if>      
+      <p>            
+            <spring:url value="/courseteachers?form" var="url_add_new_course">
+                <spring:param name="teacherid" value="${id}"/>
+            </spring:url>
+            <a href="${url_add_new_course}">${label_add_new_course_to_teacher}</a>
+      </p>
+   
+</c:if>
+
+
+</jsp:root>

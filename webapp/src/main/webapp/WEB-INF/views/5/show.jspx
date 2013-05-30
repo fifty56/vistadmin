@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" 
+ 	 xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+ 	 xmlns:vist="urn:jsptagdir:/WEB-INF/tags/vist"
+ 	 xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"	
+ 	 xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+ 	 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+ 	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+ 	 xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"  
+ 	 xmlns:spring="http://www.springframework.org/tags" 
+ version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+    <page:show id="ps_org_vist_vistadmin_domain_Student" object="${student}" path="/students" z="lmigCIaAZz1JcC2FOwRF/OSeSnU=">
+    <div id="view_panel_statused" class="${student.status}">
+    
+        <spring:message code="label_org_vist_vistadmin_domain_personstatus" var="label_status" htmlEscape="false"/>
+         <div style="float:right;margin-right:180px;font-size:16px;">
+            <br/><b>${label_status}: <spring:eval expression="student.status" /></b>
+        </div>
+    
+        <field:display field="personalData.firstName" id="s_org_vist_vistadmin_domain_Studentx_firstName" object="${student}" z="0"/>
+        <field:display field="personalData.lastName" id="s_org_vist_vistadmin_domain_Studentx_lastName" object="${student}" z="0"/>
+        <field:display field="personalData.emailAddress" id="s_org_vist_vistadmin_domain_Studentx_emailAddress" object="${student}" z="0"/>
+        <field:display field="personalData.phoneNumber" id="s_org_vist_vistadmin_domain_Studentx_phoneNumber" object="${student}" z="0"/>
+        <field:display date="true" dateTimePattern="${vistadminDateFormat}" field="personalData.bornDate" id="s_org_vist_vistadmin_domain_Studentx_bornDate" 
+		object="${student}" z="0"/>				
+		<field:display field="personalData.bornPlace" id="c_org_vist_vistadmin_domain_student_bornplace" object="${student}" z="0"/>
+		<field:display field="personalData.motherName" id="c_org_vist_vistadmin_domain_student_mothername" object="${student}" z="0"/>		
+		<c:if test="${student.languages != null}">
+			<field:display field="languages" id="s_org_vist_vistadmin_domain_student_languages" object="${student}" z="user-managed"/>
+		</c:if>        
+        
+        
+        <c:if test="${student.company}">
+        	<spring:message htmlEscape="false" code="label_company" var="label_student_company"/>	        	
+	    	<util:panel id="student_company_panel" title="${label_student_company}" openPane="true">
+	    		<p><spring:message code="label_org_vist_vistadmin_domain_student_companystudentnames" htmlEscape="false"/>:
+	        		<ul><c:forEach var="stName" items="${fn:split(student.companyData.companyStudentNames, ';')}">
+      					<li><c:out value="${stName}" /></li> 
+            		</c:forEach></ul>                       
+        		</p>
+        		
+        		<field:display field="companyData.regNumber" id="c_org_vist_vistadmin_domain_student_company_regnumber"  object="${student}" />	
+				<field:display field="companyData.taxNumber" id="c_org_vist_vistadmin_domain_student_company_taxnumber"  object="${student}" />
+	    	</util:panel>
+        </c:if>
+        
+        <c:if test="${student.address != null}">
+	        <p>
+	        <spring:message code="label_address" var="label_address" htmlEscape="false"/>
+		    <util:panel id="teacher_address_panel" title="${label_address}" openPane="true">
+	        	<field:display field="address.zipAddress" id="s_org_vist_vistadmin_domain_Studentx_zipAddress" object="${student}" z="0"/>
+	        	<field:display field="address.city" id="s_org_vist_vistadmin_domain_Studentx_city" object="${student}" z="0"/>
+	        	<field:display field="address.street" id="s_org_vist_vistadmin_domain_Studentx_street" object="${student}" z="0"/>
+	        </util:panel>
+	        </p>
+        </c:if>
+        
+        <c:if test="${student.parentPersonalData != null and !student.parentPersonalData.empty1}">
+        	<p>		
+        	<spring:message code="label_parent_data" var="label_student_parent_data" htmlEscape="false"/>
+	    	<util:panel id="student_parent_panel" title="${label_student_parent_data}" openPane="true">	        
+	        	<field:display field="parentPersonalData.firstName" id="s_org_vist_vistadmin_domain_Studentx_parent_firstName" object="${student}" z="0"/>
+	        	<field:display field="parentPersonalData.lastName" id="s_org_vist_vistadmin_domain_Studentx_parent_lastName" object="${student}" z="0"/>
+	        	<field:display field="parentPersonalData.emailAddress" id="s_org_vist_vistadmin_domain_Studentx_parent_emailAddress" object="${student}" z="0"/>
+	        	<field:display field="parentPersonalData.phoneNumber" id="s_org_vist_vistadmin_domain_Studentx_parent_phoneNumber" object="${student}" z="0"/>
+	        	<field:display field="parentPersonalData.bornPlace" id="c_org_vist_vistadmin_domain_student_bornplace"  object="${student}"  z="0"/>
+        		<field:display field="parentPersonalData.motherName" id="c_org_vist_vistadmin_domain_student_mothername" object="${student}"  z="0"/>
+	        	<field:display field="parentPersonalData.addressStr" id="c_org_vist_vistadmin_domain_student_parentaddress" object="${student}"  z="O"/>
+	        	<field:display date="true" dateTimePattern="${vistadminDateFormat}" field="parentPersonalData.bornDate" id="s_org_vist_vistadmin_domain_Studentx_bornDate" object="${student}" z="0"/>
+	        </util:panel>
+	        </p>
+        </c:if>
+        
+        
+        
+        
+        <c:if test="${student.billingAddress != null}">
+            <p>		
+        	<spring:message code="label_billingaddress" var="label_student_billingaddress" htmlEscape="false"/>
+	    	<util:panel id="student_billingaddress_panel" title="${label_student_billingaddress}" openPane="true">        
+	        	<field:display field="billingAddress.name" id="s_org_vist_vistadmin_domain_Studentx_billingAddress_name" object="${student}" z="0"/>	        	
+	        	<c:if test="${student.billingAddress.address != null}">	
+	        		<field:display field="billingAddress.address.zipAddress" id="s_org_vist_vistadmin_domain_Studentx_billing_zipAddress" object="${student}" z="0"/>
+	        		<field:display field="billingAddress.address.city" id="s_org_vist_vistadmin_domain_Studentx_billing_city" object="${student}" z="0"/>
+	        		<field:display field="billingAddress.address.street" id="s_org_vist_vistadmin_domain_Studentx_billing_street" object="${student}" z="0"/>
+	        	</c:if>
+			 	<c:if test="${student.billingAddress.postalAddress != null}">	
+	        		<field:display field="billingAddress.postalAddress.zipAddress" id="c_org_vist_vistadmin_domain_studentx_billing_postal_zipaddress" object="${student}" z="0"/>
+	        		<field:display field="billingAddress.postalAddress.city" id="c_org_vist_vistadmin_domain_studentx_billing_postal_city" object="${student}" z="0"/>
+	        		<field:display field="billingAddress.postalAddress.street" id="c_org_vist_vistadmin_domain_studentx_billing_postal_street" object="${student}" z="0"/>
+	        	</c:if>
+        	</util:panel>
+        	</p>
+        </c:if>
+        
+        <field:display field="comment" id="c_org_vist_vistadmin_domain_Course_comment" z="0" object="${student}"/>
+        
+        <vist:relationlist id="${student.id}" courseStudentList="${courseStudentList}" showCoursesOfStudent="true"/>        
+        <vist:studentBudget student="${student}" showStudentExpenses="true" showStudentBudget="true"/>
+       </div>
+    </page:show>
+</div>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:spring="http://www.springframework.org/tags"  xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+    <page:show id="ps_org_vist_vistadmin_domain_CourseIncome" object="${courseincome}" path="/courseincomes" z="K/L6IgR+1zbecljNrwfl19RMneY=">
+        <field:display field="student" id="s_org_vist_vistadmin_domain_CourseIncome_student" object="${courseincome}" z="6T/gAGec6NnJYJDoY47KjsMmdew=" showAsLink="true"/>
+        <field:display field="course" id="s_org_vist_vistadmin_domain_CourseIncome_course" object="${courseincome}" z="cbFeHOJOm4+f1TxQTvEmmZeM7IA=" showAsLink="true"/>
+        <field:display field="amount" id="s_org_vist_vistadmin_domain_CourseIncome_amount" object="${courseincome}" z="Ogfy8zia9MAvEjLQlqHfoIJ6uHY="/>                
+        <field:display field="billOrderNumber" id="s_org_vist_vistadmin_domain_courseincome_billordernumber"  object="${courseincome}" z="KQxWaCPecHccqVanPEkWWDRoFjI="/>
+        <field:display date="true" dateTimePattern="${vistadminDateFormat}" field="deadlineDate" id="s_org_vist_vistadmin_domain_CourseIncome_deadlineDate" object="${courseincome}" z="85ZDWq3PtHmPCkWpjz44whwl36A="/>
+        <field:display field="payed" id="c_org_vist_vistadmin_domain_courseincome_payed" object="${courseincome}" z="Ogfy8zia9MAvEjLQlqHfoIJ6uHY=" isboolean="true"/>
+        <field:display date="true" dateTimePattern="${vistadminDateFormat}" field="paymentDate" id="s_org_vist_vistadmin_domain_CourseIncome_paymentDate" object="${courseincome}" z="85ZDWq3PtHmPCkWpjz44whwl36A="/>
+        <c:if test="${courseincome.course.payPerClasses}">            
+        	<field:display field="year" id="c_org_vist_vistadmin_domain_courseincome_Year" object="${courseincome}" z="Ogfy8zia9MAvEjLQlqHfoIJ6uHY="/>
+
+			<spring:message code="label_org_vist_vistadmin_domain_courseincome_month" var="monthlabel" htmlEscape="false" />
+			<div id="c_org_vist_vistadmin_domain_courseincome_month_id">
+	      		<label for="_month_id">	
+	        		<c:out value="${monthlabel}" />:
+	      		</label>
+	      		<div class="box" id="_c_org_vist_vistadmin_domain_courseincome_month_month_id">
+	      			<spring:message code="select_option_completedclass_month_${courseincome.month}" var="month" htmlEscape="false" />
+	      			<c:out value="${month}" />
+	        	</div>
+	        </div>
+	        <br/>  
+
+	        <spring:message code="label_org_vist_vistadmin_domain_courseincome_week" var="weeklabel" htmlEscape="false" />
+			<div id="c_org_vist_vistadmin_domain_courseincome_week_id">
+	      		<label for="_week_id">	
+	        		<c:out value="${weeklabel}" />:
+	      		</label>
+	      		<div class="box" id="_c_org_vist_vistadmin_domain_courseincome_week_week_">
+	      			<c:choose>
+	      				<c:when test="${courseincome.week == -1}">
+	      					<spring:message code="select_option_completedclass_monthly" var="week" htmlEscape="false" />		
+	      				</c:when>
+	      				<c:otherwise>
+	      					<spring:message code="select_option_completedclass_week" arguments="${courseincome.week}" var="week" htmlEscape="false" />
+	      				</c:otherwise>
+	      			</c:choose>      			
+	      			<c:out value="${week}" />
+	        	</div>
+	        </div>
+	        <br/>   
+        	              	
+        </c:if>
+    </page:show>
+</div>

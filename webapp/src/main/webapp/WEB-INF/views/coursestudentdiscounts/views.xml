@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="default" name="coursestudentdiscounts/list">
+        <put-attribute name="body" value="/WEB-INF/views/coursestudentdiscounts/list.jspx"/>
+    </definition>
+<definition extends="default" name="coursestudentdiscounts/show">
+        <put-attribute name="body" value="/WEB-INF/views/coursestudentdiscounts/show.jspx"/>
+    </definition>
+<definition extends="default" name="coursestudentdiscounts/create">
+        <put-attribute name="body" value="/WEB-INF/views/coursestudentdiscounts/create.jspx"/>
+    </definition>
+<definition extends="default" name="coursestudentdiscounts/update">
+        <put-attribute name="body" value="/WEB-INF/views/coursestudentdiscounts/update.jspx"/>
+    </definition>
+</tiles-definitions>

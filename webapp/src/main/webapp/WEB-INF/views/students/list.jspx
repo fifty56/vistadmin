@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_org_vist_vistadmin_domain_Student" items="${students}" z="w5v499KL6W++cgfK9wcaybNjp/0=">
+        <table:table data="${students}" id="l_org_vist_vistadmin_domain_Student" path="/students" z="user-managed" checkStatus="true">            
+            <table:column id="c_org_vist_vistadmin_domain_Studentx_lastName" property="personalData.lastName" z="0"/>
+            <table:column id="c_org_vist_vistadmin_domain_Studentx_firstName" property="personalData.firstName" z="0"/>
+            <table:column id="label_org_vist_vistadmin_domain_student_company" property="companyName" z="0"/>
+            <table:column id="c_org_vist_vistadmin_domain_Studentx_emailAddress" property="personalData.emailAddress" z="0"/>
+            <table:column id="c_org_vist_vistadmin_domain_Studentx_phoneNumber" property="personalData.phoneNumber" z="0"/>
+            <table:column id="c_org_vist_vistadmin_domain_Teacher_languages" property="languages" z="etDYCnkvH0UQ7MHQytJ0MgBfuy0="/>
+        </table:table>
+    </page:list>
+</div>

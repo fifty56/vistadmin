@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" xmlns:spring="http://www.springframework.org/tags" 
+		xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page" 
+xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+    <page:show id="ps_org_vist_vistadmin_domain_CourseStudent" object="${coursestudent}" path="/coursestudents" z="4z2liaOppmEiXrtt57lz159eKkg=">
+        <field:display field="course" id="s_org_vist_vistadmin_domain_CourseStudent_course" object="${coursestudent}" z="" showAsLink="true"/>
+        <field:display field="student" id="s_org_vist_vistadmin_domain_CourseStudent_student" object="${coursestudent}" z="UZxowJNry/+pbw/ODN2zcAzH3Gg="  showAsLink="true"/>
+         <field:display date="true" dateTimePattern="${courseStudent_startdate_date_format}" field="startDate" id="s_org_vist_vistadmin_domain_CourseStudent_startDate" object="${coursestudent}" z="/iJz/4E2X8gG4MUHMZrVLKnYsVA="/>
+        <field:display date="true" dateTimePattern="${courseStudent_enddate_date_format}" field="endDate" id="s_org_vist_vistadmin_domain_CourseStudent_endDate" object="${coursestudent}" z="fKzsg55J25QzEQVGpPkB14lLbVo="/>
+        
+        <c:if test="${coursestudent.student.company}">
+        	<p><spring:message code="label_org_vist_vistadmin_domain_student_companystudentnames" htmlEscape="false"/>:
+	        <ul><c:forEach var="stName" items="${fn:split(coursestudent.companyStudentNames, ';')}">
+      			<li><c:out value="${stName}" /></li> 
+            </c:forEach></ul>                       
+        	</p>
+        </c:if>
+        
+    </page:show>
+</div>

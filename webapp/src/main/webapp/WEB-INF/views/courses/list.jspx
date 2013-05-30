@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+    <page:list id="pl_org_vist_vistadmin_domain_Course" items="${courses}" z="N6L0ePHeTAZ2xuM+E0WOFCeLqLQ=">
+	        <table:table data="${courses}" id="l_org_vist_vistadmin_domain_Course" path="/courses" z="" checkStatus="true" checkCourse="true" booleanField="company">
+            <table:column id="c_org_vist_vistadmin_domain_Course_courseId" property="courseId" z="MkaasntEtWeRLE6iLDvvqiSLSGU="/>
+            <table:column id="c_org_vist_vistadmin_domain_Course_company_s" property="company" z="MkaasntEtWeRLE6iLDvvqiSLSGU="/>
+            <table:column id="c_org_vist_vistadmin_domain_Course_lang" property="lang" z="wXQZnLtBx1e2Ssu+XFUXXlEtAeg="/>
+            <table:column id="c_org_vist_vistadmin_domain_Course_courseLevel" property="courseLevel" z="2JbHAUIy6WtSW16bc0ozlVGZ9hU="/>
+            <table:column id="c_org_vist_vistadmin_domain_Course_courseFormat" property="courseFormat" z="u7hQ80sBzlmRI4CJLHRKRA33SN4="/>
+            <table:column id="c_org_vist_vistadmin_domain_Course_courseType" property="courseType" z=""/>
+            <table:column date="true" dateTimePattern="${vistadminDateFormat}" id="c_org_vist_vistadmin_domain_Course_startDate" property="startDate" z="E5AES6TLiHzyjEwZZl9j4wzUkGY="/>
+            <table:column date="true" dateTimePattern="${vistadminDateFormat}" id="c_org_vist_vistadmin_domain_Course_endDate" property="endDate" z="+GXySryUy9AO3P6vXEasPK1VLOo="/>
+            <table:column id="c_org_vist_vistadmin_domain_Course_status" property="status" z="wXQZnLtBx1e2Ssu+XFUXXlEtAeg="/>            
+        </table:table>
+    </page:list>
+</div>

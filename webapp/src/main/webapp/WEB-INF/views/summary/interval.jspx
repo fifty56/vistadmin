@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" 
+ 	 xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+ 	 xmlns:vist="urn:jsptagdir:/WEB-INF/tags/vist"
+ 	 xmlns:fmt="http://java.sun.com/jsp/jstl/fmt"	
+ 	 xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+ 	 xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+ 	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+ 	 xmlns:page="urn:jsptagdir:/WEB-INF/tags/form"  
+ 	 xmlns:spring="http://www.springframework.org/tags"
+ 	 xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" 
+ version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>        
+        
+    <form:create id="fc_org_vist_vistadmin_domain_monthform" modelAttribute="fti" path="/summary/interval" z="">
+        <field:datetime dateTimePattern="${vistadminDateFormat}" field="fromDate" id="c_org_vist_vistadmin_domain_month_from" required="true" z="bZ9QgFm8DY0fnrkMy92DHn3pMPo="/>
+        <field:datetime dateTimePattern="${vistadminDateFormat}" field="toDate" id="c_org_vist_vistadmin_domain_month_to" required="true" z="bZ9QgFm8DY0fnrkMy92DHn3pMPo="/>
+    </form:create>
+    
+    <fmt:formatDate value="${fromDate}" pattern="${fn:escapeXml(vistadminDateFormat)}" var="fd"/>
+    <fmt:formatDate value="${toDate}" pattern="${fn:escapeXml(vistadminDateFormat)}" var="td"/>
+        
+	<p><strong><c:out value="${fd} - ${td}"/></strong></p>
+	
+    <p><c:out value="Havi befizetesek:"/></p>
+    
+    <ul>    	
+    <c:forEach items="${payedCourseIncomeList}" var="courseIncome" varStatus="ci">
+    
+      <div id="course_income_${courseIncome.id}">        
+    	<p>                		
+    		<spring:url value="/courseincomes/${courseIncome.id}" var="url_courseincome">
+			</spring:url>		          		
+    	       
+    		<li><c:out value="Befizetes:"/> <a href="${url_courseincome}">${courseIncome.id}</a><c:out value=", osszeg"/>: ${courseIncome.amount}</li>        	
+        </p>
+    	</div>
+    </c:forEach>
+	</ul>
+	
+    <p><c:out value="Havi kifizetesek:"/></p>
+        	
+        	<ul>
+    <c:forEach items="${payedCompletedClassList}" var="completedClass" varStatus="ci">
+    
+      <div id="course_income_${completedClass.id}">        
+    	<p>                		
+    		<spring:url value="/completedclasses/${completedClass.id}" var="url_courseincome">
+			</spring:url>		          		
+    	       
+    		<li><c:out value="Kifizetes: "/><a href="${url_courseincome}">${completedClass.id}</a><c:out value=", osszeg: "/>${completedClass.expense}</li>        	
+        </p>
+    	</div>
+    </c:forEach>
+    </ul>
+
+	<p><strong><c:out value="Ossz befizetes: ${payedSumOfIncomes}"/><br/>
+	<c:out value="Ossz kifizetes: ${payedSumOfExpenses}"/></strong></p>
+	
+	<hr/>
+	
+	
+	<p><c:out value="Havi varhato befizetesek:"/></p>
+    
+    <ul>    	
+    <c:forEach items="${notPayedCourseIncomeList}" var="courseIncome" varStatus="ci">
+    
+      <div id="course_income_${courseIncome.id}">        
+    	<p>                		
+    		<spring:url value="/courseincomes/${courseIncome.id}" var="url_courseincome">
+			</spring:url>		          		
+    	       
+    		<li><c:out value="Befizetes:"/> <a href="${url_courseincome}">${courseIncome.id}</a><c:out value=", osszeg"/>: ${courseIncome.amount}</li>        	
+        </p>
+    	</div>
+    </c:forEach>
+	</ul>
+	
+    <p><c:out value="Havi varhato kifizetesek:"/></p>
+        	
+        	<ul>
+    <c:forEach items="${notPayedCompletedClassList}" var="completedClass" varStatus="ci">
+    
+      <div id="course_income_${completedClass.id}">        
+    	<p>                		
+    		<spring:url value="/completedclasses/${completedClass.id}" var="url_courseincome">
+			</spring:url>		          		
+    	       
+    		<li><c:out value="Kifizetés: "/><a href="${url_courseincome}">${completedClass.id}</a><c:out value=", osszeg: "/>${completedClass.expense}</li>        	
+        </p>
+    	</div>
+    </c:forEach>
+    </ul>
+
+	<p><b>Letanított órák alapján:</b></p>
+	<p>
+	<c:out value="Összes várható befizetes (bruttó): ${notPayedSumOfIncomes}"/><br/>
+	<c:out value="Összes várható kifizetés (bruttó): ${notPayedSumOfExpenses}"/></p>
+			
+	<p><c:out value="Összes befizetes (bruttó): ${sumOfIncomes}"/><br/>
+	<c:out value="Összes kifizetés (bruttó): ${sumOfExpenses}"/></p>
+	
+	
+</div>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="adult_normal" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cc64269a-802d-4c56-b043-7ebe303791e7">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="815"/>
+	<property name="net.sf.jasperreports.export.docx.flexible.row.height" value="true"/>
+	<property name="ireport.layers" value="##Tue Aug 07 17:05:08 CEST 2012\nlayer.2.visible=true\nlayer.1.name=inputs\nlayer.0.visible=true\nlayer.2.id=2\nlayer.2.name=static text\nlayer.1.id=1\nlayer.1.visible=true\nlayer.0.id=0\nlayer.0.name=Background"/>
+	<parameter name="course" class="org.vist.vistadmin.domain.Course" isForPrompting="false"/>
+	<parameter name="student" class="org.vist.vistadmin.domain.Student"/>
+	<parameter name="courseTitle" class="java.lang.String"/>
+	<parameter name="coursePlace" class="java.lang.String"/>
+	<parameter name="courseStartDate" class="java.lang.String"/>
+	<parameter name="courseEndDate" class="java.lang.String"/>
+	<parameter name="numberOfStudents" class="java.lang.String"/>
+	<parameter name="studentAddress" class="java.lang.String"/>
+	<parameter name="courseSchedule" class="java.lang.String"/>
+	<parameter name="studentBornPlaceDate" class="java.lang.String"/>
+	<parameter name="priceStr" class="java.lang.String"/>
+	<parameter name="preiceDetailsStr" class="java.lang.String"/>
+	<parameter name="currDateStr" class="java.lang.String"/>
+	<parameter name="contractNumber" class="java.lang.String"/>
+	<parameter name="studentParentAddress" class="java.lang.String"/>
+	<parameter name="studentParentBornPlaceDate" class="java.lang.String"/>
+	<parameter name="instantCourseFormat" class="java.lang.String"/>
+	<parameter name="instantCourseType" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="802" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="85a0f03d-f537-4551-8ded-34db8833cb85" x="0" y="0" width="166" height="68"/>
+				<textElement/>
+				<text><![CDATA[VIST - VILÁGNYELVEK STÚDIÓJA
+Tel.: 06-30-347-1607
+info@vilagnyelvek.hu
+www.vilagnyelvek.hu
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e2116778-a565-44c0-9e14-eec65a0458f2" x="158" y="68" width="238" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true"/>
+				</textElement>
+				<text><![CDATA[FELNŐTTKÉPZÉSI SZERZŐDÉS]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="bde9d85a-c3bc-4bfe-b5eb-2a06da6a3478" x="339" y="0" width="214" height="20">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA["Szerződésszám:" + $P{contractNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="323c6640-6eae-4162-aa92-a4175d4af730" x="0" y="112" width="553" height="45">
+					<property name="ireport.layer" value="2"/>
+				</reportElement>
+				<textElement textAlignment="Justified">
+					<font fontName="SansSerif" size="11" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Amely létrejött egyrészről a Mayflower BT ( Székhely: 2310 Szigetszentmiklós Bíró Lajos utca 111., reg.szám: 13-0173-07, cégjegyzékszám: 13-06-056201, képviselője: Bartha-Becskei Zsuzsanna, cégvezető), mint képzést nyújtó intézmény, másrészről:
+ ]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="4fbb2c43-efff-40a0-ba04-925edbf99129" x="0" y="157" width="553" height="610"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[(($P{student}.getParentPersonalData() != null && !$P{student}.getParentPersonalData().isEmpty()) ? "    GYERMEK\n" : "") +
+"       Név: " + $P{student}.getPersonalData().getLastName() + " " + $P{student}.getPersonalData().getFirstName() + "\n" +
+"       Anyja neve: " + ($P{student}.getPersonalData().getMotherName() == null ? "" : $P{student}.getPersonalData().getMotherName()) + "\n" +
+"       Születési hely és idő: " + ($P{studentBornPlaceDate} == null ? "" : $P{studentBornPlaceDate}) + "\n" +
+"       Állandó lakcím: " + ($P{studentAddress} == null ? "" : $P{studentAddress}) + "\n" +
+"       Email: " + ($P{student}.getPersonalData().getEmailAddress() == null ? "" : $P{student}.getPersonalData().getEmailAddress())  + "\n" +
+"       Telefonszám: " + ($P{student}.getPersonalData().getPhoneNumber() == null ? "" : $P{student}.getPersonalData().getPhoneNumber()) +
+(($P{student}.getParentPersonalData() != null && !$P{student}.getParentPersonalData().isEmpty()) ? (
+"\n\n    GONDVISELŐ:\n" +
+"        Név: " + $P{student}.getParentPersonalData().getLastName() + " " + $P{student}.getParentPersonalData().getFirstName() + "\n" +
+"        Anyja neve: " + ($P{student}.getParentPersonalData().getMotherName() == null ? "" : $P{student}.getParentPersonalData().getMotherName()) + "\n" +
+"        Születési hely és idő: " + ($P{studentParentBornPlaceDate} == null ? "" : $P{studentParentBornPlaceDate}) + "\n" +
+"        Állandó lakcím: " + ($P{studentParentAddress} == null ? "" : $P{studentParentAddress}) + "\n" +
+"        Email: " + ($P{student}.getParentPersonalData().getEmailAddress() == null ? "" : $P{student}.getParentPersonalData().getEmailAddress())  + "\n" +
+"        Telefonszám: " + ($P{student}.getParentPersonalData().getPhoneNumber() == null ? "" : $P{student}.getParentPersonalData().getPhoneNumber())
+) : "") +
+
+"\n\nKépzésben résztvevő (továbbiakban hallgató) között az alulírott helyen és napon az alábbi feltételek szerint:\n" +
+"1. Képzésre vonatkozó adatok:\n" +
+"       1.1: A képzés menevezése: " + $P{courseTitle} + "\n" +
+"       1.2: A tanfolyam azonosító száma: " + $P{course}.getCourseId() + "\n" +
+"       1.3: A képzés helye: " + $P{coursePlace} + "\n" +
+($P{course}.getCourseFormat().toString().equals("INSTANT") ?
+(
+"       1.4 A képzés időtartama, beosztása, típusa:\n" +
+"           1.4.1. Képzés kezdete: " + $P{courseStartDate} + "         " + "Képzés vége: " + $P{courseEndDate} + "\n" +
+"           1.4.2. Óraszám: " + $P{course}.getSumOfClasses() + "   (egy óra 60 perc)\n" +
+"           1.4.3. Csomagtípus: " + $P{instantCourseFormat} + "\n" +
+"           1.4.4. Bérlettípus: " + $P{instantCourseType} + "\n"
+) : (
+"       1.4 A képzés időtartama, beosztása, létszáma:\n" +
+"           1.4.1. Képzés kezdete: " + $P{courseStartDate} + "         " + "Képzés vége: " + $P{courseEndDate} + "\n" +
+"           1.4.2. Időbeosztás: " + $P{courseSchedule} + "\n" +
+"           1.4.3. Létszám: " + $P{numberOfStudents} + " fő\n" +
+($P{course}.getPayPerClasses() ? "" : "           1.4.4. Óraszám: " + $P{course}.getSumOfClasses() + "\n")
+)) +
+"       1.6 A képzés díja:\n" +
+"           1.6.1. " + $P{priceStr} + "\n" +
+($P{course}.getCourseFormat().toString().equals("INSTANT") ? "\n" : $P{preiceDetailsStr} +"\n" ) +
+($P{course}.getCourseFormat().toString().equals("INSTANT") ? "" :
+"       1.7 A hallgató teljesítményének ellenőrzése és értékelése tanfolyami modulonként, záróteszt alapján történik.\n"
+) +
+"2. A képző intézmény kötelezettségvállalása és szerződésszegésének következményei\n" +
+"       2.1 Képző intézmény vállalja a fentiekben részletezett képzés lebonyolítását, a szükséges személyi és tárgyi feltételek biztosítását.\n" +
+"       2.2 A szerződésszegés következményeit részletesen a szerződés mellékleteként átadott ÁLTALÁNOS SZERZŐDÉSI FELTÉTELEK tartalmazza.\n" +
+"3. A hallgató részletfizetés esetén a részleteket a megjelölt határidőig befizeti, ellenkező esetben a nyelviskola az ügy rendezését ügyvédi úton bonyolítja le.\n" +
+"\n" +
+" + Felek jelen szerződést és az ÁSZF-et elolvasták és mint akaratukkal mindenben megegyezőt  aláírásukkal jóváhagyták.\n" +
+"\n" +
+"\n" +
+"Feliratkozom a VIST havi hírlevelére:                IGEN                              NEM\n" +
+"\n" +
+"\n" +
+"Kelt: Szigetszentmiklós " + $P{courseStartDate} + "\n" +
+
+"\n\n\n                 .........................................................               ..............................................................." + "\n" +
+"                          A Mayflower BT képviselője                                 Tanuló vagy gondviselő"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

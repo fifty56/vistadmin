@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:spring="http://www.springframework.org/tags" xmlns:vist="urn:jsptagdir:/WEB-INF/tags/vist" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+
+	<c:if test="${createdCourseIncomes != null}">
+			<spring:message code="warning_label" var="warning_label" htmlEscape="false" />
+			<spring:message code="warning_followinf_cis_created_for_cc" var="label_ci_created_for_cc" htmlEscape="false" />
+			<spring:url value="/" var="url_base"/>
+			<div class="warning_message">
+				<p class="warning_title">${warning_label}</p>
+				<p>${label_ci_created_for_cc}
+					<ul>
+						<c:forEach items="${createdCourseIncomes}" var="createdCourseIncome">
+						<spring:message code="select_option_completedclass_month_${createdCourseIncome.month}" var="ci_month" htmlEscape="false" />
+						<spring:message code="select_option_completedclass_week" arguments="${createdCourseIncome.week}" var="ci_week" htmlEscape="false" />
+						<c:if test="${createdCourseIncome.week == -1}">
+							<spring:message code="select_option_completedclass_monthly" var="ci_week" htmlEscape="false" />
+						</c:if>			
+						<li><vist:courseIncome courseIncome="${createdCourseIncome}"/> (<a target="_blank" href="${url_base}courseincomes/${createdCourseIncome.id}">link</a>)</li>
+						</c:forEach>
+					</ul>
+				</p>
+			</div>
+		</c:if>
+
+    <page:show id="ps_org_vist_vistadmin_domain_CourseStudentDiscount" object="${coursestudentdiscount}" path="/coursestudentdiscounts" z="MsnN97FuoEHVP/z08tZBWM4eRCA=">
+        <field:display field="course" id="s_org_vist_vistadmin_domain_CourseStudentDiscount_course" object="${coursestudentdiscount}" z="EGVWDjmUa8wACfT4ONtGpMKejFw=" showAsLink="true"/>
+        <field:display field="student" id="s_org_vist_vistadmin_domain_CourseStudentDiscount_student" object="${coursestudentdiscount}" z="7bVBfDayy+iMvigVrdhLuw3EWAk=" showAsLink="true"/>
+        <field:display field="comment" id="s_org_vist_vistadmin_domain_CourseStudentDiscount_comment" object="${coursestudentdiscount}" z="IxFiL0EYv7lZC0fjGQ/swbQromM=" />
+        <field:display field="discount" id="s_org_vist_vistadmin_domain_CourseStudentDiscount_discount" object="${coursestudentdiscount}" z="/pcIqUEECFkSbw3OLvydTTkfaRY=" showAsLink="true"/>
+    </page:show>
+</div>

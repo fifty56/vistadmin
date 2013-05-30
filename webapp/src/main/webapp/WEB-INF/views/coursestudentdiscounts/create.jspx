@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_org_vist_vistadmin_domain_CourseStudentDiscount" modelAttribute="courseStudentDiscount" path="/coursestudentdiscounts" render="${empty dependencies}" z="Ym8FUtzdOqzhG4qkPz6bCUNd8Gs=">
+        <field:select field="course" id="c_org_vist_vistadmin_domain_CourseStudentDiscount_course" itemValue="id" items="${courses}" path="/courses" required="true" z="V0oHNkY1g34FUH3GgoiDasJ7boo="/>
+        <field:select field="student" id="c_org_vist_vistadmin_domain_CourseStudentDiscount_student" itemValue="id" items="${students}" path="/students" required="true" z="C8Wrm8Swk8oVV149c5pArpC7luo="/>
+        <field:input field="comment" id="c_org_vist_vistadmin_domain_CourseStudentDiscount_comment" z="gQdYBbpOnkrBvY15+qKeto61CFY="/>
+        <field:select field="discount" id="c_org_vist_vistadmin_domain_CourseStudentDiscount_discount" itemValue="id" items="${discounts}" path="/discounts" required="true" z="9fxxfYGd/5iMAIjiI/QRSSAmneo="/>
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_org_vist_vistadmin_domain_CourseStudentDiscount" render="${not empty dependencies}" z="OAc6Ldr6XHLfBPYBSGeuAQVWr6k="/>
+</div>

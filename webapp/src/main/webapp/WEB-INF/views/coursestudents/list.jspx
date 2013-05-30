@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core"  xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <c:set value="yyyy-MM-dd" var="vistadminDateFormat"/>
+    <page:list id="pl_org_vist_vistadmin_domain_CourseStudent" items="${coursestudents}" z="cHw21e0wUSE7TKDaoKJXUNS/68k=">
+        <table:table data="${coursestudents}" id="l_org_vist_vistadmin_domain_CourseStudent" path="/coursestudents" z="kZEooTpALVJ9y+G0QN523HhfF6M=">
+            <table:column id="c_org_vist_vistadmin_domain_CourseStudent_course" property="course" z="8LgagoUR4IUagTxIYvAubqyeDBc="/>
+            <table:column id="c_org_vist_vistadmin_domain_CourseStudent_student" property="student" z="8DJb/uTuZ08/GmCSy+K39LIPl2o="/>
+            <table:column date="true" dateTimePattern="${vistadminDateFormat}" id="c_org_vist_vistadmin_domain_CourseStudent_startDate" property="startDate" z="xfcbCBJqlNQiU+H/7J2FaqU27lg="/>
+            <table:column date="true" dateTimePattern="${vistadminDateFormat}" id="c_org_vist_vistadmin_domain_CourseStudent_endDate" property="endDate" z="Y0NaWRyOW92R8Ah+YrnRuWrQbuU="/>
+        </table:table>
+    </page:list>
+</div>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:vist="urn:jsptagdir:/WEB-INF/tags/vist"  
+xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" xmlns:fmt="http://java.sun.com/jsp/jstl/fmt" 
+xmlns:fn="http://java.sun.com/jsp/jstl/functions" xmlns:jsp="http://java.sun.com/JSP/Page"
+xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+ xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:spring="http://www.springframework.org/tags" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:show id="ps_org_vist_vistadmin_domain_Teacher" object="${teacher}" path="/teachers" z="DHVPtjTaPfGiMO2+BtzTXvJRd1I=">        
+    <div id="view_panel_statused" class="${teacher.status}">
+    
+        <spring:message code="label_org_vist_vistadmin_domain_personstatus" var="label_status" htmlEscape="false"/>
+         <div style="float:right;margin-right:180px;font-size:16px;">
+            <br/><b>${label_status}: <spring:eval expression="teacher.status" /></b>
+        </div>
+        
+        <field:display field="personalData.lastName" id="s_org_vist_vistadmin_domain_Studentx_lastName" object="${teacher}" z="0"/>
+        <field:display field="personalData.firstName" id="s_org_vist_vistadmin_domain_Studentx_firstName" object="${teacher}" z="0"/>
+        <field:display field="personalData.emailAddress" id="s_org_vist_vistadmin_domain_Studentx_emailAddress" object="${teacher}" z="0"/>
+        <field:display field="personalData.phoneNumber" id="s_org_vist_vistadmin_domain_Studentx_phoneNumber" object="${teacher}" z="0"/>
+        <field:display date="true" dateTimePattern="${studentx_borndate_date_format}" field="personalData.bornDate" id="s_org_vist_vistadmin_domain_Studentx_bornDate" object="${teacher}" z="0"/>        
+        <field:display field="languages" id="s_org_vist_vistadmin_domain_Teacher_languages" object="${teacher}" z="user-managed"/>
+		
+        
+        <c:if test="${teacher.address != null}">
+        	<spring:message htmlEscape="false" code="label_address" var="label_address"/>
+        	<util:panel id="teacher_address_panel" title="${label_address}" openPane="true">
+        		<field:display field="address.zipAddress" id="s_org_vist_vistadmin_domain_Studentx_zipAddress" object="${teacher}" z="0"/>
+        		<field:display field="address.city" id="s_org_vist_vistadmin_domain_Studentx_city" object="${teacher}" z="0"/>
+        		<field:display field="address.street" id="s_org_vist_vistadmin_domain_Studentx_street" object="${teacher}" z="0"/>
+        	</util:panel>
+        </c:if>
+        
+        
+        
+        <c:if test="${teacher.teacherBillingData != null}">
+            <p>
+	        <spring:message htmlEscape="false" code="label_teacher_billing_data" var="label_teacher_billing_data"/>
+    	    <util:panel id="teacher_teacher_billing_data_panel" title="${label_teacher_billing_data}" openPane="true">	        		        			        
+		        <field:display field="teacherBillingData.name" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_name" object="${teacher}" z="0"/>
+		        <field:display field="teacherBillingData.address.zipAddress" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_address_zipaddress"  object="${teacher}" />
+		        <field:display field="teacherBillingData.address.city" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_address_city"   object="${teacher}" z="0"/>
+		        <field:display field="teacherBillingData.address.street" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_address_street"   object="${teacher}" z="0"/>
+		        <field:display field="teacherBillingData.taxNumber" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_taxnumber"   object="${teacher}" z="0"/>
+		        <field:display field="teacherBillingData.accountNumber" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_accountnumber"   object="${teacher}" z="0"/>
+		        <field:display field="teacherBillingData.companyNumber" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_companynumber"   object="${teacher}" z="0"/>
+		        <field:display field="teacherBillingData.VAT" id="c_org_vist_vistadmin_domain_teacher_teacherbillingdata_vat" object="${teacher}" isboolean="true"/>
+		    </util:panel>
+		    </p>
+        </c:if>
+
+		<field:display field="comment" id="c_org_vist_vistadmin_domain_Course_comment" z="0" object="${teacher}"/>	
+                	               
+		<vist:relationlist id="${teacher.id}" courseTeacherList="${courseTeacherList}" showCoursesOfTeacher="true"/>
+		<vist:teacherBudget teacher="${teacher}" completedClassList="${completedClassList}" showTeacherCompletedClass="true"/>
+		<vist:teacherBudget teacher="${teacher}" showTeacherBudget="true"/>        
+		</div>
+    </page:show>
+</div>

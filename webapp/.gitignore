@@ -1,0 +1,11 @@
+.settings
+target
+a.txt
+log.roo
+buildme.cmd
+vistadmin.log
+vistadmin.properties
+../1
+../2
+../docs
+../webapp_backup

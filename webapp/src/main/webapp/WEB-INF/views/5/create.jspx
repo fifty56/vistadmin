@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:spform="http://www.springframework.org/tags/form" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+xmlns:util="urn:jsptagdir:/WEB-INF/tags/util" xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields"
+ xmlns:form="urn:jsptagdir:/WEB-INF/tags/form" xmlns:jsp="http://java.sun.com/JSP/Page" 
+ xmlns:spring="http://www.springframework.org/tags" version="2.0">
+	<spring:url value="/resources/js/jquery-1.7.2.min.js" var="jquery_url" />
+    <spring:url value="/resources/js/companyStudentNames.js" var="companystudentnames_url" />      
+	<script src="${jquery_url}" type="text/javascript"/>
+	 <script type="text/javascript">
+     	var jq = jQuery.noConflict();
+ 	 </script>
+	<script src="${companystudentnames_url}" type="text/javascript"/>
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <form:create id="fc_org_vist_vistadmin_domain_Student" modelAttribute="student" path="/students" render="${empty dependencies}" z="user-managed">
+    	<field:checkbox field="company" id="c_org_vist_vistadmin_domain_student_company" z="0"/>
+        <field:input field="personalData.firstName" id="c_org_vist_vistadmin_domain_Studentx_firstName" required="true" z="0"/>
+        <field:input field="personalData.lastName" id="c_org_vist_vistadmin_domain_Studentx_lastName" required="true" z="0"/>        
+        <field:input field="personalData.emailAddress" id="c_org_vist_vistadmin_domain_Studentx_emailAddress" required="false" validationMessageCode="field_invalid_email" z="0"/>
+        <field:input field="personalData.phoneNumber" id="c_org_vist_vistadmin_domain_Studentx_phoneNumber" z="0"/>
+        <field:datetime dateTimePattern="${vistadminDateFormat}" field="personalData.bornDate" id="c_org_vist_vistadmin_domain_Studentx_bornDate" z=""/>        
+        <field:input field="personalData.bornPlace" id="c_org_vist_vistadmin_domain_student_bornplace" required="false" z="0"/>
+        <field:input field="personalData.motherName" id="c_org_vist_vistadmin_domain_student_mothername" required="false" z="0"/>
+        <field:select field="status" id="c_org_vist_vistadmin_domain_personstatus" items="${personstatuses}" path="personstatuses" required="true" z=""/>
+		<field:select field="languages" required="true" id="c_org_vist_vistadmin_domain_Student_languages" multiple="true" items="${languageses}" path="languageses" z="16OPHwyUumDFJD73ZNlbotQOsTo="/>
+
+		<p>
+			<spring:message htmlEscape="false" code="label_company" var="label_student_company"/>
+        	<c:set var="companyPanelOpen" value="true"/>
+       		<!-- c:if test="${student.company}">
+       			<c:set var="companyPanelOpen" value="true"/>
+       		</c:if-->
+       		
+       		<c:set var="company_panel_container_style" value="hidden" />
+				<c:if test="${student.company}">
+					<c:set var="company_panel_container_style" value="visible" />
+				</c:if>
+       		
+       		<div id="company_panel_container" style="display:${company_panel_container_style}">
+        	<util:panel id="student_company_panel" title="${label_student_company}" openPane="${companyPanelOpen}">					
+				<spring:message code="label_org_vist_vistadmin_domain_student_companystudentnames" var="studentnameslabel" htmlEscape="false" />
+				
+				<c:set var="companynames_panel_style" value="visible" />
+				<!-- c:if test="${company.student}">
+					<c:set var="companynames_panel_style" value="visible" />
+				</c:if-->
+				
+				<div id="c_org_vist_vistadmin_domain_student_companystudentnames_id" style="display:${companynames_panel_style}">
+		      		<label for="c_org_vist_vistadmin_domain_student_companystudentnames_id">	
+		        		<c:out value="${studentnameslabel}" />:
+		      		</label>	      	
+					<div class="multidd_container" id="multidd_container">    
+			            <div>	            				            
+				        	<select id="_classTimesList_id" name="companyData.companyStudentNameList" class="multidd" multiple="true">
+				        		<c:forEach items="${companyStudentNameList}" var="studentName">
+				        			<option value="${studentName.id}">${studentName.label}</option>
+				        		</c:forEach>
+				        	</select>
+			        	</div>                
+			        	<div class="buttons">
+			        		<spring:message code="label_button_add" var="button_add" htmlEscape="false" />
+			        		<spring:message code="label_button_delete" var="button_delete" htmlEscape="false" />	          
+			 				<a href="#" id="add_cousetime"> &lt;&lt; ${button_add} </a><br/><br/>
+			 				<a href="#" id="remove_cousetime"> ${button_delete} &gt;&gt; </a>
+			 			</div>
+			 			<div class="datetime">
+				 			<spring:message code="label_student_name_of_student" var="label_name_of_student" htmlEscape="false" />
+				 			<c:out value="${label_name_of_student}"/>: <input type="text" name="input_new_student_name" id="input_new_student_name" />    				        	
+							<br/>
+						</div>
+					</div>
+				</div>								
+				<spform:errors cssClass="errors" id="_companyStudentNames_error_id" path="companyData.companyStudentNames" />
+				
+				<field:input field="companyData.regNumber" id="c_org_vist_vistadmin_domain_student_company_regnumber"  required="false"/>	
+				<field:input field="companyData.taxNumber" id="c_org_vist_vistadmin_domain_student_company_taxnumber"  required="false"/>
+			</util:panel>
+			</div>			                        
+		</p>
+
+
+		<p>
+        <spring:message htmlEscape="false" code="label_address" var="label_address"/>
+	    <util:panel id="student_address_panel" title="${label_address}" openPane="false">
+	        <field:input field="address.zipAddress" id="c_org_vist_vistadmin_domain_Studentx_zipAddress" decimalMax="5" required="false" z="3II3UkCx9QbOK2KSWYipPv5e6/c="/>
+	        <field:input field="address.city" id="c_org_vist_vistadmin_domain_Studentx_city" required="false" z="Cz5vg/I8NNGvCFvfKFm4xoOkn1Y="/>
+	        <field:input field="address.street" id="c_org_vist_vistadmin_domain_Studentx_street" z="TZ/9WhLAdOZYTL71kGmxGllfUPU="/>
+		</util:panel>
+		</p>
+
+		<p>		
+        <spring:message htmlEscape="false" code="label_parent_data" var="label_student_parent_data"/>
+	    <util:panel id="student_parent_panel" title="${label_student_parent_data}" openPane="false">
+	        <field:input field="parentPersonalData.firstName" id="c_org_vist_vistadmin_domain_Studentx_parent_firstName" required="false" z="0"/>
+	        <field:input field="parentPersonalData.lastName" id="c_org_vist_vistadmin_domain_Studentx_parent_lastName" required="false" z="0"/>
+	        <field:input field="parentPersonalData.emailAddress" id="c_org_vist_vistadmin_domain_Studentx_parent_emailAddress" required="false" validationMessageCode="field_invalid_email" z="0"/>
+	        <field:input field="parentPersonalData.phoneNumber" id="c_org_vist_vistadmin_domain_Studentx_parent_phoneNumber" z="O"/>
+	        <field:input field="parentPersonalData.bornPlace" id="c_org_vist_vistadmin_domain_student_bornplace" required="false" z="0"/>
+        	<field:input field="parentPersonalData.motherName" id="c_org_vist_vistadmin_domain_student_mothername" required="false" z="0"/>
+	        <field:input field="parentPersonalData.addressStr" id="c_org_vist_vistadmin_domain_student_parentaddress" z="O"/>	        
+	        <field:datetime dateTimePattern="${studentx_parent_borndate_date_format}" field="parentPersonalData.bornDate" id="c_org_vist_vistadmin_domain_Studentx_parent_bornDate" z="0"/>
+        </util:panel>
+        </p>
+
+
+        <p>		
+        <spring:message htmlEscape="false" code="label_billingaddress" var="label_student_billingaddress"/>
+        <c:set var="baPanelOpen" value="false"/>
+        <c:if test="${student.billingAddress != null}">
+        	<c:if test="${!student.billingAddress.empty1}">
+        		<c:set var="baPanelOpen" value="true"/>
+        	</c:if>
+        </c:if>
+        
+	    <util:panel id="student_billingaddress_panel" title="${label_student_billingaddress}" openPane="${baPanelOpen}">	        
+	        <field:input field="billingAddress.name" id="c_org_vist_vistadmin_domain_Studentx_billingAddress_name" required="false" z="0"/>
+	        <field:input field="billingAddress.address.zipAddress" id="c_org_vist_vistadmin_domain_Studentx_billing_zipAddress" decimalMax="5" required="false" z="0"/>
+	        <field:input field="billingAddress.address.city" id="c_org_vist_vistadmin_domain_Studentx_billing_city" required="false" z="0"/>
+	        <field:input field="billingAddress.address.street" id="c_org_vist_vistadmin_domain_Studentx_billing_street" z="0"/>
+	                
+	        <field:input field="billingAddress.postalAddress.zipAddress" id="c_org_vist_vistadmin_domain_studentx_billing_postal_zipaddress" decimalMax="5" required="false" z="0"/>
+	        <field:input field="billingAddress.postalAddress.city" id="c_org_vist_vistadmin_domain_studentx_billing_postal_city" required="false" z="0"/>
+	        <field:input field="billingAddress.postalAddress.street" id="c_org_vist_vistadmin_domain_studentx_billing_postal_street" z="0"/>
+	     </util:panel>
+	     </p>
+	        
+	     <field:textarea field="comment" id="c_org_vist_vistadmin_domain_Course_comment" z="0"/>
+	                        
+    </form:create>
+    <form:dependency dependencies="${dependencies}" id="d_org_vist_vistadmin_domain_Student" render="${not empty dependencies}" z="v2Rg852SigNgMp897P45oqmKpyc="/>
+</div>

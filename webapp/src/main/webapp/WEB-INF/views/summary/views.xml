@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="default" name="summary/show">
+        <put-attribute name="body" value="/WEB-INF/views/summary/show.jspx"/>
+    </definition>
+    <definition extends="default" name="summary/month">
+        <put-attribute name="body" value="/WEB-INF/views/summary/month.jspx"/>
+    </definition>
+    <definition extends="default" name="summary/interval">
+        <put-attribute name="body" value="/WEB-INF/views/summary/interval.jspx"/>
+    </definition>
+</tiles-definitions>

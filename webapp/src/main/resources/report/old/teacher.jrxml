@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="teacher" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dda83731-acc0-4e9c-ad17-b6dcae594b4d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="173"/>
+	<parameter name="teacherAddress" class="java.lang.String"/>
+	<parameter name="teacher" class="org.vist.vistadmin.domain.Teacher"/>
+	<parameter name="courseTitle" class="java.lang.String"/>
+	<parameter name="courseAddress" class="java.lang.String"/>
+	<parameter name="courseStartDate" class="java.lang.String"/>
+	<parameter name="courseEndDate" class="java.lang.String"/>
+	<parameter name="classSchedule" class="java.lang.String"/>
+	<parameter name="course" class="org.vist.vistadmin.domain.Course"/>
+	<parameter name="contractNumber" class="java.lang.String"/>
+	<parameter name="currDateStr" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="802" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="85a0f03d-f537-4551-8ded-34db8833cb85" x="0" y="0" width="166" height="68"/>
+				<textElement/>
+				<text><![CDATA[VIST - VILÁGNYELVEK STÚDIÓJA
+2310 Szigetszentmiklós Gyári út 17
+Tel.: 06-30-347-1607
+info@vilagnyelvek.hu
+www.vilagnyelvek.hu
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="bde9d85a-c3bc-4bfe-b5eb-2a06da6a3478" x="336" y="2" width="214" height="20">
+					<property name="ireport.layer" value="1"/>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA["Szerződésszám:" + $P{contractNumber}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="e2116778-a565-44c0-9e14-eec65a0458f2" x="158" y="48" width="238" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="15" isBold="true" pdfEncoding="Cp1252"/>
+				</textElement>
+				<text><![CDATA[MEGBÍZÁSI SZERZÕDÉS]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="5d03c46c-b4d2-4371-8a95-338d29d82de5" x="0" y="103" width="555" height="174"/>
+				<textElement textAlignment="Justified" markup="html"/>
+				<textFieldExpression><![CDATA["amely létrejött egyrészt a MAYFLOWER Bt. (2310 Szigetszentmiklós, Bíró Lajos u. 111., képviselő: Bartha-Becskei Zsuzsanna, reg.szám: 13-0173-07, cg: 13-06-056201, adószám: 22250320-2-13), mint Megbízó (a továbbiakban: Megbízó),"+
+"<br/>"+
+"másrészt " + $P{teacher}.getTeacherBillingData().getName() + ", (" + $P{teacherAddress} + ",  adószám: " +
+$P{teacher}.getTeacherBillingData().getTaxNumber() + ", cg.: " + $P{teacher}.getTeacherBillingData().getCompanyNumber() + "), mint Megbízott (a továbbiakban: Megbízott), együttesen Szerződő Felek - között a mai napon a jelen szerződésben foglalt feltételekkel:<br/>"+
+"<br/>"+
+"<u>1. A megbízás tárgya</u><br/>"+
+"A Megbízó megbízza a Megbízottat felnőttképzési tevékenység ellátásával. A Megbízott a megbízást elfogadja az alábbiak szerint.<br/>"+
+"Tanfolyam kódja: " +  $P{course}.getCourseId() + "<br/>" +
+"Tanfolyam megnevezése: " + $P{courseTitle} + "<br/>" +
+"Helyszín: " + $P{courseAddress} + "<br/>"+
+"Tanfolyam kezdete: " + $P{courseStartDate} +  "<br/>" +
+"Tanfolyam vége: " + $P{courseEndDate} + "<br/>" +
+"Órák időpontja: " + $P{classSchedule} + "<br/>" +
+"Óradíj: " + (new DecimalFormat("###,###.###", new org.vist.vistadmin.reporting.VistDecimalFormatSymbols()).format($P{course}.getTeacherClassPrice())) + " Ft." +
+($P{teacher}.getTeacherBillingData().getVAT() ? " (+Áfa)" : "") + "<br/>" +
+($P{course}.getSumOfClasses() == 0 ? "" : ("Óraszám: " + $P{course}.getSumOfClasses() + " óra")) +
+"<br/>"+
+"<br/>"+
+"<u>2. A Megbízott kötelezettségei</u><br/>"+
+"<u>2.1. A Megbízott köteles a képzés során:</u><br/>"+
+"a.	A képzést legjobb tudása szerint megtartani és a Megbízó által előírt tananyagot leadni, tematikát betartani, az attól való eltérést a Megbízó irányába előre jelezni, melyet Megbízó jogosult személyesen ellenőrizni.<br/>"+
+"b.	A nyelvtanfolyamok óráit jelen megbízás időtartama alatt folyamatosan és pontosan megtartani. Amennyiben az órakezdésre - neki felróható okból - nem jelenik meg, a Megbízott köteles megtartani az elmaradt órát annak kiszámlázása nélkül. <br/>"+
+"c.	A Megbízott köteles a megbízás ellátásában bekövetkező akadályoztatását oly módon előzetesen - lehetőleg 48 órával korábban - bejelenteni a Megbízónak, hogy amennyiben a csoport igényli, a helyettesítése megoldható legyen. A Megbízott az elmaradt órára eső megbízási díjra nem tarthat igényt. Megbízott az óra megtartását csak kellően alátámasztott esetben tagadhatja meg. Az akadályoztatás nem kellő időben történő jelzése esetén a Megbízó a szerződést azonnali hatállyal, egyoldalúan felmondhatja. <br/>"+
+"d.	Az órák lemondására a hallgatók részéről legkésőbb az óra előtt 24 órával van lehetőség. Amennyiben ez nem történik meg, a foglalkozás megtartottnak számít. A halasztott tanórák letanulási határideje a tanfolyamok részletezésénél meghatározásra kerül.<br/>"+
+"e.	Megbízott köteles a képzési naplót folyamatosan és pontosan vezetni, és ezt a Megbízó részére minden részteljesítésről kiállított számla mellékleteként csatolni.<br/>"+
+"f.	Megbízott felelőséggel tartozik az általa használt helyiség rendeltetésszerű használatáért, továbbá a tanítás céljára, a Megbízótól kapott taneszközök épségéért. A Megbízó a kárigényét jogosult beszámítással érvényesíteni a Megbízottnak járó, még ki nem fizetett megbízási díjból.<br/>"+
+"<br/>"+
+"<u>2.2. A Megbízott egyéb kötelezettségei:</u><br/>"+
+"a.	Megbízott a  feladatait a legjobb tudása szerint, az elvárható gondosság mellett, a szakmai és etikai szabályok betartásával végzi. A Megbízott köteles a feladatai ellátása során a Megbízó jó hírnevének megőrzésére.<br>"+
+"b.	A Megbízott köteles a képzéssel kapcsolatban rendszeres tájékoztatást adni a Megbízó részére.<br/>"+
+"c.	A Megbízott jelen szerződés megszűnése vagy megszüntetése esetén köteles a szerződés teljesítésével összefüggésben a birtokába került, Megbízó tulajdonát képező tananyagokat, tankönyveket, taneszközöket, egyéb dokumentumokat a Megbízó részére haladéktalanul visszaszolgáltatni. Mindaddig, amíg a Megbízott ezen kötelezettségének nem tesz eleget maradéktalanul, a Megbízó jogosult a Megbízott részére járó megbízási díjat vagy annak arányos összegét visszatartani.<br/>"+
+"d.	A Felek rögzítik, hogy a Megbízó kezdeményezésére, irányítása és finanszírozása alapján létrejövő szellemi termékek szerzői joga - a törvény erejénél fogva - a Megbízót illeti. A Megbízott tudomásul veszi, hogy a Megbízó tulajdonát képező szellemi terméket (tananyagok, tematikák, ismertetők, stb.) semmilyen formában nem jogosult harmadik személy vagy szervezet részére átadni, illetve a jelen Szerződésen túlmenően használni vagy hasznosítani.<br/> "+
+"e.	A Megbízott - jelen szerződés megszűnése esetén is - köteles üzleti titokként kezelni a Megbízóra, valamint a Megbízó üzleti partnereire, hallgatóira vonatkozó, a megbízás teljesítése során tudomására jutott adatokat, illetve információkat, azokat kizárólag a Megbízó érdekében használhatja fel, illetéktelen személyek tudomására nem hozhatja, hozzáférhetővé nem teheti. <br/>"+
+"f.	Megbízott vagy annak képviselője a Szerződés időtartama alatt és azután 3 évig nem létesíthet munkaviszonyt, illetve nem köthet szerződést a Megbízó üzleti partnerével, - valamint más szervezet képviselőjeként vagy alvállalkozójaként sem - a szerződés tárgyát képező tevékenységre vonatkozóan. <br/>"+
+"g.	A Megbízottat jelen szerződésben vállaltak igazolt teljesítéséért a szerződéses óradíj alapulvételével kiszámolt megbízási díj illeti meg, amely tartalmazza a Megbízott által a feladat ellátása során felhasznált szemléltető- illetve taneszközök díját. <br/>"+
+"<br/>"+
+"<u>3. Megbízó kötelezettségei</u><br/>"+
+"a.	A Megbízó vállalja, hogy a Megbízás tárgyában szereplő feladat elvégzéséhez szükséges információt a tanfolyamok megkezdése előtt és a tanfolyam során folyamatosan Megbízott tudomására hozza. <br/>"+
+"b.	A Megbízó vállalja, hogy a Megbízás tárgyában szereplő feladat elvégzéséhez szükséges tananyagot, könyvtár használati és fénymásolási lehetőséget a kijelölt időben biztosítja.<br/>"+
+"c.	A Megbízó köteles - a képzési napló által igazolt óraszám alapján - a kifogástalanul kiállított számlát Megbízott számlaszámára átutalni.<br/>"+
+"<br/>"+
+"<u>4. Számlázási és fizetési feltételek</u>"+
+"Megbízott a havonta ténylegesen megtartott órák alapján tárgyhót követő 5. munkanapig számlát állít ki, melynek kötelező melléklete a teljesítés igazolását képező képzési napló. A fizetés minden hó 10. és 15. napja között, készpénzben vagy utalással történik. Késedelmes fizetés esetén a Megbízott a Polgári Törvénykönyvben meghatározott késedelmi kamat érvényesítésére jogosult.<br/>"+
+"<br/>"+
+"<u>5. Egyéb rendelkezések</u><br/>"+
+"a.	Szerződő Felek rögzítik, hogy jelen megbízás nem kizárólagos, melyre tekintettel a Megbízott jelen szerződésben megjelölt tevékenységeket más, harmadik személy(ek) részére is végezheti oly módon, hogy a jelen szerződésben rögzített megbízás maradéktalan teljesítése ne ütközzön akadályba. <br/>"+
+"b.	A jelen szerződést bármelyik fél jogosult 15 napos (rendes) felmondási idővel, a másik félhez intézett írásbeli nyilatkozattal, egyoldalúan felmondani. Felmondás esetén a Megbízó köteles a Megbízottal elszámolni és a megbízási díj arányos összegét - amennyiben indokolt - kifizetni a Megbízott részére.<br/>"+
+"c.	A Megbízó jogosult jelen szerződést azonnali hatállyal felmondani, amennyiben a Megbízott ismétlődően nem az igazoltan elvárható minőségben vagy határidőre teljesít, valamint ha a Megbízó megrendelője bármilyen okból eláll megrendelésétől. A szerződés felmondása esetén a szerződés megszűnik és a Megbízó kizárólag a felmondásig teljesített órák ellenértékét köteles megtéríteni a Megbízott részére. Amennyiben Megbízott jelen szerződést a szerződés lejárta előtt mondja fel, és Megbízónak ebből anyagi kára származik (új tanár keresése, leállásból eredő goodwill-vesztés, ügyfélvesztés, stb.), a Megbízó jogosult az ebből eredő károkat a Megbízottal szemben érvényesíteni.<br/>"+
+"d.	Jelen szerződés annak mindkét fél általi aláírásakor lép hatályba.<br/>"+
+"e.	A jelen szerződésben nem szabályozott kérdésekben a Ptk. megbízásra vonatkozó rendelkezései irányadóak. Szerződő felek a jelen szerződésből eredő jogvitáikat megkísérlik békés úton rendezni, ennek sikertelensége esetén kikötik a Budapesti XX-XXI-XXXIII. Kerületi Bíróság, kizárólagos illetékességét.<br/>" +
+"f.	Szerződő Felek jelen szerződést kölcsönös értelmezést követően jóváhagyólag aláírták.<br/><br/>" +
+"Dátum: Szigetszentmiklós, " + $P{currDateStr}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement uuid="88079bbc-1ca3-4288-84b6-6394954c70df" positionType="Float" stretchType="RelativeToTallestObject" x="0" y="289" width="555" height="94"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["\n\n" +
+"                         ..................................................      .....................................................\n" +
+"                                         Megbízó                                           Megbízott\n"+
+"                                       Mayflower BT.                               " + $P{teacher}.getTeacherBillingData().getName()
+
+]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

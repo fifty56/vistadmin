@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_org_vist_vistadmin_domain_Discount" items="${discounts}" z="cfDSU5L1otD2n5OvfM23mwMIubA=">
+        <table:table data="${discounts}" id="l_org_vist_vistadmin_domain_Discount" path="/discounts" z="yX326vGdpG7huFpG+THe2hj2psA=">
+            <table:column id="c_org_vist_vistadmin_domain_Discount_name" property="name" z="M/1jp30IlBa36KjN6f/Q/hMMjoo="/>
+            <table:column id="c_org_vist_vistadmin_domain_Discount_type" property="type" z="KNzyHnrTrKCgPhRy73F+o3rxizA="/>
+            <table:column id="c_org_vist_vistadmin_domain_Discount_amount" property="amount" z="J1zKRe6UjDj/BCSh+ZSkRh2HHPE="/>
+            <table:column id="c_org_vist_vistadmin_domain_Discount_comment" property="comment" z="Nv/m1kwdewfZwjNIuVpiC5efzSE="/>
+        </table:table>
+    </page:list>
+</div>
