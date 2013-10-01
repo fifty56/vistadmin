@@ -6,7 +6,7 @@
     <form:create id="fc_org_vist_vistadmin_domain_CourseTeacher" modelAttribute="courseTeacher" path="/courseteachers" render="${empty dependencies}" z="RWhdBVDX61v3cO0hb4SwEcmIXEU=">
         <field:select field="course" id="c_org_vist_vistadmin_domain_CourseTeacher_course" itemValue="id" items="${courses}" path="/courses" required="true" z="+BEaTFMlSHVwfs01mciClwTV9SI="/>
         <field:select field="teacher" id="c_org_vist_vistadmin_domain_CourseTeacher_teacher" itemValue="id" items="${teachers}" path="/teachers" required="true" z="TuA4E36cM50zwg9fZc/AjGQqKVQ="/>
-		<!-- field:input field="numerOfClasses" id="c_org_vist_vistadmin_domain_courseteacher_numerofclasses" required="true" z="LJeVTIRye7LrIa8HWG4b8WNk000="/-->
+		<field:input field="numerOfClasses" id="c_org_vist_vistadmin_domain_courseteacher_numerofclasses" required="true" z="LJeVTIRye7LrIa8HWG4b8WNk000="/>
         <field:datetime dateTimePattern="${vistadminDateFormat}" field="startDate" id="c_org_vist_vistadmin_domain_CourseTeacher_startDate" z="MfiaF8Ce6xzqqqwz6dT+ZVE/dLI="/>
         <field:datetime dateTimePattern="${vistadminDateFormat}" field="endDate" id="c_org_vist_vistadmin_domain_CourseTeacher_endDate" z="31wZFPbwlXVpwmMZp7my1oXtNls="/>
     </form:create>

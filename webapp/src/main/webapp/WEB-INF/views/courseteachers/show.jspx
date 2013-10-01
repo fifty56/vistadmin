@@ -7,7 +7,7 @@ xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:page="urn:jsptagdir:/WEB-INF/t
     <page:show id="ps_org_vist_vistadmin_domain_CourseTeacher" object="${courseteacher}" path="/courseteachers" z="X48HrhuQtXJRQd2TL3SlYdrt/uA=">
         <field:display field="course" id="s_org_vist_vistadmin_domain_CourseTeacher_course" object="${courseteacher}" z="dN8i9NFITiDRB2lutUyeOt7YD3w=" showAsLink="true"/>
         <field:display field="teacher" id="s_org_vist_vistadmin_domain_CourseTeacher_teacher" object="${courseteacher}" z="uTAT+1UY1KSbyF6Jo7NX9gOkYU8=" showAsLink="true"/>
-        <!-- field:display field="numerOfClasses" id="s_org_vist_vistadmin_domain_courseteacher_numerofclasses" object="${courseteacher}"  z="LJeVTIRye7LrIa8HWG4b8WNk000="/-->        
+        <field:display field="numerOfClasses" id="s_org_vist_vistadmin_domain_courseteacher_numerofclasses" object="${courseteacher}"  z="LJeVTIRye7LrIa8HWG4b8WNk000="/>        
         <field:display date="true" dateTimePattern="${vistadminDateFormat}" field="startDate" id="s_org_vist_vistadmin_domain_CourseTeacher_startDate" object="${courseteacher}" z="RWlAaXYPRgN3MbORLCXkjXZQTM4="/>
         <field:display date="true" dateTimePattern="${vistadminDateFormat}" field="endDate" id="s_org_vist_vistadmin_domain_CourseTeacher_endDate" object="${courseteacher}" z="NwFEbXyZCh1gyKeXlRGcjevO0OE="/>
     </page:show>
