@@ -230,7 +230,8 @@
                      </td>
                      <td>
                          <c:out value=" ${startDate} - ${endDate}"/>
-                     </td>                           
+                     </td>   
+                     <td><c:out value="${courseTeacher.numerOfClasses}"/></td>                        
                      <td>                     
                      	<spring:url value="/report/teachercontract/pdf/${courseTeacher.id}" var="url_teachercontract_pdf">
         					<spring:param name="lang" value="hu"/>
