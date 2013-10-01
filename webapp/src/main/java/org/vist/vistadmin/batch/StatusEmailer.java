@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import org.vist.vistadmin.domain.CompletedClass;
 import org.vist.vistadmin.domain.Course;
 import org.vist.vistadmin.domain.CourseIncome;
@@ -54,6 +55,7 @@ public class StatusEmailer {
 	@Autowired
 	VistEmailSender emailSender;	           
 	
+	@Transactional
 	public void sendStatusMail() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<hr/>");

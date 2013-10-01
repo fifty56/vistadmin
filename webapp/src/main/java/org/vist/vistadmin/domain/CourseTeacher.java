@@ -26,13 +26,13 @@ public class CourseTeacher {
     @NotNull
     private int numerOfClasses;
     
-    /*public int getNumerOfClasses() {
+    public int getNumerOfClasses() {
 		return numerOfClasses;
 	}
 
 	public void setNumerOfClasses(int numerOfClasses) {
 		this.numerOfClasses = numerOfClasses;
-	}*/
+	}
 
 	@Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "M-")

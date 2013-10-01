@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -24,6 +26,8 @@ import org.vist.vistadmin.web.BaseController;
 @Configurable
 public class CourseTeacherValidator implements Validator {
 
+		private static final Logger LOGGER =  LoggerFactory.getLogger(CourseTeacherValidator.class);
+	
 		@Autowired
 		CourseTeacherService courseTeacherService;
 	
@@ -71,9 +75,17 @@ public class CourseTeacherValidator implements Validator {
 	    	if(teacher != null && course != null) {
 	    		List<CourseTeacher> ctl = courseTeacherService.findByTeacherAndCourse(teacher, course);
 	    		
+	    		LOGGER.debug("current CT.id: " + courseTeacher.getId());
+	    		LOGGER.debug("isNew: " + isNew + ", ctl: " + (ctl == null ? "null" : "size: " + ctl.size()));
+	    		if(ctl != null) {
+	    			for (CourseTeacher courseTeacher2 : ctl) {
+	    				LOGGER.debug("CT.id: " + courseTeacher2.getId());
+					}
+	    		}
+	    		
 	    		if(isNew && ctl != null && ctl.size() > 0) {	    		
 	    			errors.rejectValue("course", "error_courseteacher_not_unique");
-	    		} else if(!isNew && ctl != null && (ctl.size() > 1 || ctl.get(0).getId() != courseTeacher.getId())) {
+	    		} else if(!isNew && ctl != null && (ctl.size() > 1 || !ctl.get(0).getId().equals(courseTeacher.getId()))) {
 	    			errors.rejectValue("course", "error_courseteacher_not_unique");
 	    		}
 	    			    	

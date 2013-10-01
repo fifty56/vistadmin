@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -16,10 +18,13 @@ import org.vist.vistadmin.domain.Course;
 import org.vist.vistadmin.domain.CourseStudent;
 import org.vist.vistadmin.domain.Student;
 import org.vist.vistadmin.service.CourseStudentService;
+import org.vist.vistadmin.web.CourseController;
 
 @Configurable
 public class CourseStudentValidator implements Validator {
 
+		private static final Logger LOGGER =  LoggerFactory.getLogger(CourseStudentValidator.class);
+	
 		@Autowired
 		CourseStudentService courseStudentService;
 	
@@ -68,10 +73,12 @@ public class CourseStudentValidator implements Validator {
 	    	if(student != null && course != null) {
 	    		
 	    		List<CourseStudent> csl = courseStudentService.findByStudentAndCourse(student, course);
-	    		
-	    		if(isNew && csl != null && csl.size() > 0) {	    		
+	    		 
+	    		if(isNew && csl != null && csl.size() > 0) {
+	    			LOGGER.debug("isNew, and csl.size > 0");
 	    			errors.rejectValue("course", "error_coursestudent_not_unique");
-	    		} else if(!isNew && csl != null && (csl.size() > 1 || csl.get(0).getId() != courseStudent.getId())) {
+	    		} else if(!isNew && csl != null && (csl.size() > 1 || !csl.get(0).getId().equals(courseStudent.getId()))) {
+	    			LOGGER.debug("not isNew, and csl.size > 0, csl.get(0).getId(): " + csl.get(0).getId() + ",  courseStudent.getId(): " + courseStudent.getId());
 	    			errors.rejectValue("course", "error_coursestudent_not_unique");
 	    		}
 	    		
