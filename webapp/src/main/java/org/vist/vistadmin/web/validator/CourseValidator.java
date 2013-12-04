@@ -122,7 +122,7 @@ public class CourseValidator implements Validator {
 		    				unique = false;
 		    			} else {
 		    				for(Course c : courses) {
-		    					if(c.getId() != course.getId()) {
+		    					if(!c.getId().equals(course.getId())) {
 		    						unique = false;
 		    						break;
 		    					}
